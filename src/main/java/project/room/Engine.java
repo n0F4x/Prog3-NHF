@@ -30,12 +30,20 @@ public class Engine {
     }
 
     public void moveCamera(Direction direction) {
-        double moveAmount;
-        // TODO: Move camera by amount based on direction
+        double moveAmount = 1;
+        switch (direction) {
+//            case Forward ->
+//            case Left ->
+//            case Backward ->
+//            case Right ->
+            case Up -> camera.move(new Vector3D(0, -moveAmount, 0, 0));
+            case Down -> camera.move(new Vector3D(0, moveAmount, 0, 0));
+        }
+        recalculateGeometry();
     }
 
     public void rotateCamera(Point2D.Double point) {
-        double scale = 0.01;
+        double scale = 0.05;
         camera.rotate(new Vector3D(point.y * scale, point.x * scale, 0, 0));
         recalculateGeometry();
     }

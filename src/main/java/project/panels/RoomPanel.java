@@ -45,6 +45,7 @@ public class RoomPanel extends JPanel {
                 case KeyEvent.VK_S -> engine.moveCamera(Direction.Backward);
                 case KeyEvent.VK_D -> engine.moveCamera(Direction.Right);
             }
+            repaint();
         }
     }
     public class MouseEventListener extends MouseMotionAdapter {

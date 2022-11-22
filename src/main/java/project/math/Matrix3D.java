@@ -87,8 +87,8 @@ public class Matrix3D {
         matrix[0][0] = matrix[2][2] = Math.cos(rY * Math.PI / 180);
 
         double sine = Math.sin(rY * Math.PI / 180);
-        matrix[0][2] = sine;
-        matrix[2][0] = -sine;
+        matrix[0][2] = -sine;
+        matrix[2][0] = sine;
 
         return new Matrix3D(matrix);
     }

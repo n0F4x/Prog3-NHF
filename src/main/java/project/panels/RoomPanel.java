@@ -52,6 +52,7 @@ public class RoomPanel extends JPanel {
         public void mouseMoved(MouseEvent mouseEvent) {
             if (isFocusOwner()) {
                 engine.rotateCamera(new Point2D.Double(mouseEvent.getLocationOnScreen().getX() - center.getX(), mouseEvent.getLocationOnScreen().getY() - center.getY()));
+                repaint();
                 if (robotEnabled) {
                     robot.mouseMove(center.x, center.y);
                 }
@@ -60,7 +61,7 @@ public class RoomPanel extends JPanel {
     }
 
 
-    private final Point center = new Point((int) Window.screenSize.getWidth(), (int) Window.screenSize.getHeight());
+    private final Point center = new Point((int) (Window.screenSize.getWidth() / 2.0), (int) (Window.screenSize.getHeight() / 2.0));
     private final Engine engine;
     private final Crosshair crosshair = new Crosshair();
     private Robot robot;

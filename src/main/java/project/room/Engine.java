@@ -1,8 +1,8 @@
 package project.room;
 
 import project.ResourceManager;
-import project.room.Camera;
-import project.room.Room;
+import project.math.Vector3D;
+
 import project.math.Direction;
 
 import java.awt.geom.Point2D;
@@ -35,6 +35,8 @@ public class Engine {
     }
 
     public void rotateCamera(Point2D.Double point) {
-        // TODO: Rotate camera
+        double scale = 0.01;
+        camera.rotate(new Vector3D(point.y * scale, point.x * scale, 0, 0));
+        recalculateGeometry();
     }
 }

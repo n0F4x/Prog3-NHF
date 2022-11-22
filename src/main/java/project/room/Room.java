@@ -20,10 +20,10 @@ public class Room {
         }
 
         private Matrix3D calcViewMatrix(Camera camera) {
-            return Matrix3D.buildTranslationMatrix(Vector3D.multiply(camera.getPosition(), -1))
-                    .concat(Matrix3D.buildRotationZMatrix(camera.getRotation().z * -1))
+            return Matrix3D.buildRotationXMatrix(camera.getRotation().x * -1)
                     .concat(Matrix3D.buildRotationYMatrix(camera.getRotation().y * -1))
-                    .concat(Matrix3D.buildRotationXMatrix(camera.getRotation().x * -1));
+                    .concat(Matrix3D.buildRotationZMatrix(camera.getRotation().z * -1))
+                    .concat(Matrix3D.buildTranslationMatrix(Vector3D.multiply(camera.getPosition(), -1)));
         }
 
         public void update(Camera camera) {

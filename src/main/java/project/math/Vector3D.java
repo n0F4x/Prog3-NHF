@@ -10,7 +10,7 @@ public class Vector3D {
     public double w;
 
     public Vector3D() {
-        this(0, 0, 0, 0);
+        this(0, 0, 0, 1);
     }
 
     public Vector3D(double x, double y, double z, double w) {

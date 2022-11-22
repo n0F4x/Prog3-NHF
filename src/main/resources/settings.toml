@@ -1,7 +1,7 @@
 title = "app settings"
 
 [camera]
-FOV = 150.0
+FOV = 140
 
 [camera.position]
 x = 5.0

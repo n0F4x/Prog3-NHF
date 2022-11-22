@@ -10,7 +10,7 @@ public class FOVScroller extends JScrollBar {
 
 
     public FOVScroller(Camera camera) {
-        super(JScrollBar.HORIZONTAL, (int) camera.getFOV(), extent, (int) Camera.minFOV, (int) Camera.maxFOV);
+        super(JScrollBar.HORIZONTAL, camera.getFOV(), extent, Camera.minFOV, Camera.maxFOV + extent);
         setBounds(650,0, 600, 35);
         setBackground(Color.GREEN);
 

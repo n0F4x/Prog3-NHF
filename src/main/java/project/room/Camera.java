@@ -6,9 +6,9 @@ import project.math.Vector3D;
 public class Camera {
     private Vector3D position = new Vector3D();
     private Vector3D rotation = new Vector3D();
-    public static final double minFOV = 60.0;
-    public static final double maxFOV = 150.0;
-    private double FOV = 90.0;
+    public static final int minFOV = 60;
+    public static final int maxFOV = 150;
+    private int FOV = 90;
     private static final double near = 0.1;
     private static final double far = 200;
     private static final double aspectRatio = ((double) Window.screenSize.width) / ((double) Window.screenSize.height);
@@ -22,7 +22,7 @@ public class Camera {
         return rotation;
     }
 
-    public double getFOV() {
+    public int getFOV() {
         return FOV;
     }
 
@@ -38,7 +38,7 @@ public class Camera {
         return aspectRatio;
     }
 
-    public void setFOV(double FOV) {
+    public void setFOV(int FOV) {
         this.FOV = FOV;
     }
 

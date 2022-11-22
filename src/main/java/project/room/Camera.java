@@ -10,8 +10,8 @@ public class Camera {
     public static final double maxFOV = 150.0;
     private double FOV = 90.0;
     private static final double near = 0.1;
-    private static final double far = 2000;
-    private static final double aspect = ((double) Window.screenSize.width) / ((double) Window.screenSize.height);
+    private static final double far = 200;
+    private static final double aspectRatio = ((double) Window.screenSize.width) / ((double) Window.screenSize.height);
 
 
     public Vector3D getPosition() {
@@ -34,8 +34,8 @@ public class Camera {
         return far;
     }
 
-    public double getAspect() {
-        return aspect;
+    public double getAspectRatio() {
+        return aspectRatio;
     }
 
     public void setFOV(double FOV) {

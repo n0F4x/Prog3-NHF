@@ -1,10 +1,12 @@
 package project.room;
 
+import project.Window;
 import project.math.Matrix3D;
 import project.math.Vector3D;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,23 +19,31 @@ public class Room {
             this.room = room;
         }
 
+        private Matrix3D calcViewMatrix(Camera camera) {
+            return Matrix3D.buildTranslationMatrix(Vector3D.multiply(camera.getPosition(), -1))
+                    .concat(Matrix3D.buildRotationZMatrix(camera.getRotation().z * -1))
+                    .concat(Matrix3D.buildRotationYMatrix(camera.getRotation().y * -1))
+                    .concat(Matrix3D.buildRotationXMatrix(camera.getRotation().x * -1));
+        }
+
         public void update(Camera camera) {
             lines.clear();
 
-            Matrix3D perspectiveMatrix = Matrix3D.buildPerspectiveMatrix(camera.getFOV(), camera.getAspect(), camera.getNear(), camera.getFar());
-            Matrix3D cameraTranslationMatrix = Matrix3D.buildTranslationMatrix(Vector3D.multiply(camera.getPosition(), -1));
-            Matrix3D cameraRotationMatrix = Matrix3D.concat(Matrix3D.concat(Matrix3D.buildRotationXMatrix(camera.getRotation().x), Matrix3D.buildRotationYMatrix(camera.getRotation().y)), Matrix3D.buildRotationZMatrix(camera.getRotation().z));
-            Matrix3D projectionMatrix = Matrix3D.concat(Matrix3D.concat(perspectiveMatrix, cameraTranslationMatrix), cameraRotationMatrix);
+            Matrix3D perspectiveMatrix = Matrix3D.buildPerspectiveMatrix(camera.getFOV(), camera.getAspectRatio(), camera.getNear(), camera.getFar());
+            Matrix3D viewMatrix = calcViewMatrix(camera);
+            Matrix3D projectionMatrix = perspectiveMatrix.concat(viewMatrix);
 
-            Vector3D[] corners = new Vector3D[4];
+            Point2D[] corners = { new Point2D.Double(), new Point2D.Double(), new Point2D.Double(), new Point2D.Double() };
+
             for (Wall wall : room.walls) {
                 for (int i = 0; i < 4; i++) {
-                    corners[i] = Matrix3D.concat(projectionMatrix, wall.corners.get(i));
+                    Vector3D temp = Matrix3D.concat(projectionMatrix, wall.corners.get(i));
+                    corners[i].setLocation((temp.x / temp.w + 1.0) / 2.0 * Window.screenSize.width, (temp.y / temp.w + 1.0) / 2.0 * Window.screenSize.height);
                 }
-                lines.add(new Line2D.Double(corners[0].x, corners[0].y, corners[1].x, corners[1].y));
-                lines.add(new Line2D.Double(corners[1].x, corners[1].y, corners[2].x, corners[2].y));
-                lines.add(new Line2D.Double(corners[2].x, corners[2].y, corners[3].x, corners[3].y));
-                lines.add(new Line2D.Double(corners[3].x, corners[3].y, corners[0].x, corners[0].y));
+                lines.add(new Line2D.Double(corners[0], corners[1]));
+                lines.add(new Line2D.Double(corners[1], corners[2]));
+                lines.add(new Line2D.Double(corners[2], corners[3]));
+                lines.add(new Line2D.Double(corners[3], corners[0]));
             }
         }
 

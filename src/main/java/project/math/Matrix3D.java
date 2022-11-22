@@ -28,16 +28,15 @@ public class Matrix3D {
     }
 
     @Contract("_, _, _, _ -> new")
-    public static @NotNull Matrix3D buildPerspectiveMatrix(double FOV, double aspect, double n, double f) {
-        double tanHalfFOV = Math.tan(FOV / 2);
-        double zRange = n - f;
+    public static @NotNull Matrix3D buildPerspectiveMatrix(double FOV, double aspectRatio, double near, double far) {
+        double tanHalfFOV = Math.tan(FOV * Math.PI / 180.0 / 2.0);
 
         double[][] matrix = new double[4][4];
 
-        matrix[0][0] = 1.0 / (tanHalfFOV * aspect);
+        matrix[0][0] = 1.0 / (aspectRatio * tanHalfFOV);
         matrix[1][1] = 1.0 / tanHalfFOV;
-        matrix[2][2] = (n + f) / zRange;
-        matrix[3][2] = 2 * f * n / zRange;
+        matrix[2][2] = (near + far) / (near - far);
+        matrix[3][2] = 2 * far * near / (near - far);
         matrix[2][3] = -1;
 
         return new Matrix3D(matrix);
@@ -117,6 +116,23 @@ public class Matrix3D {
                 double temp = 0;
                 for (int i = 0; i < 4; i++) {
                     temp += lhs.matrix[row][i] * rhs.matrix[i][col];
+                }
+                result[row][col] = temp;
+            }
+        }
+
+        return new Matrix3D(result);
+    }
+
+    @Contract("_ -> new")
+    public @NotNull Matrix3D concat(@NotNull Matrix3D rhs) {
+        double[][] result = buildIdentityMatrix().matrix;
+
+        for (int row = 0; row < 4; row++) {
+            for (int col = 0; col < 4; col++) {
+                double temp = 0;
+                for (int i = 0; i < 4; i++) {
+                    temp += matrix[row][i] * rhs.matrix[i][col];
                 }
                 result[row][col] = temp;
             }

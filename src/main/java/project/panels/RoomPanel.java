@@ -2,6 +2,7 @@ package project.panels;
 
 import project.ResourceManager;
 import project.Window;
+import project.room.Crosshair;
 import project.room.Engine;
 import project.math.Direction;
 
@@ -61,6 +62,7 @@ public class RoomPanel extends JPanel {
 
     private final Point center = new Point((int) Window.screenSize.getWidth(), (int) Window.screenSize.getHeight());
     private final Engine engine;
+    private final Crosshair crosshair = new Crosshair();
     private Robot robot;
     private boolean robotEnabled = true;
     private Point oldMousePosition = new Point();
@@ -87,6 +89,8 @@ public class RoomPanel extends JPanel {
     @Override
     public void paint(Graphics graphics) {
         super.paint(graphics);
+
         engine.getPerspective().paint(graphics);
+        crosshair.paint(graphics);
     }
 }

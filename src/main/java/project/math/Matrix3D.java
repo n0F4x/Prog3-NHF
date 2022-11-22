@@ -25,10 +25,10 @@ public class Matrix3D {
                 { 0, 0, 1, 0 },
                 { 0, 0, 0, 1 }
         });
-    };
+    }
 
     @Contract("_, _, _, _ -> new")
-    public static @NotNull Matrix3D buildProjectionMatrix(double FOV, double aspect, double n, double f) {
+    public static @NotNull Matrix3D buildPerspectiveMatrix(double FOV, double aspect, double n, double f) {
         double tanHalfFOV = Math.tan(FOV / 2);
         double zRange = n - f;
 
@@ -36,44 +36,20 @@ public class Matrix3D {
 
         matrix[0][0] = 1.0 / (tanHalfFOV * aspect);
         matrix[1][1] = 1.0 / tanHalfFOV;
-        matrix[2][2] = (-n - f) / zRange;
+        matrix[2][2] = (n + f) / zRange;
         matrix[3][2] = 2 * f * n / zRange;
-        matrix[2][3] = 1;
+        matrix[2][3] = -1;
 
         return new Matrix3D(matrix);
     }
 
-    @Contract("_, _, _ -> new")
-    public static @NotNull Matrix3D buildMappingMatrix(@NotNull Vector3D x, @NotNull Vector3D y, @NotNull Vector3D z) {
-        double[][] matrix = new double[4][4];
-
-        matrix[0][0] = x.x;
-        matrix[0][1] = x.y;
-        matrix[0][2] = x.z;
-        matrix[0][3] = x.w;
-        matrix[1][0] = y.x;
-        matrix[1][1] = y.y;
-        matrix[1][2] = y.z;
-        matrix[1][3] = y.w;
-        matrix[2][0] = z.x;
-        matrix[2][1] = z.y;
-        matrix[2][2] = z.z;
-        matrix[2][3] = z.w;
-        matrix[3][0] = 0;
-        matrix[3][1] = 0;
-        matrix[3][2] = 0;
-        matrix[3][3] = 1;
-
-        return new Matrix3D(matrix);
-    }
-
-    @Contract("_, _, _ -> new")
-    public static @NotNull Matrix3D buildTranslationMatrix(double tX, double tY, double tZ) {
+    @Contract("_ -> new")
+    public static @NotNull Matrix3D buildTranslationMatrix(@NotNull Vector3D vector) {
         double[][] matrix = buildIdentityMatrix().matrix;
 
-        matrix[0][3] = tX;
-        matrix[1][3] = tY;
-        matrix[2][3] = tZ;
+        matrix[0][3] = vector.x;
+        matrix[1][3] = vector.y;
+        matrix[2][3] = vector.z;
 
         return new Matrix3D(matrix);
     }

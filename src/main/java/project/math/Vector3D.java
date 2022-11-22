@@ -30,6 +30,15 @@ public class Vector3D {
     }
 
     @Contract("_, _ -> new")
+    public static @NotNull Vector3D multiply(@NotNull Vector3D lhs, double rhs) {
+        Vector3D result = new Vector3D();
+        result.x = lhs.x * rhs;
+        result.y = lhs.y * rhs;
+        result.z = lhs.z * rhs;
+        return result;
+    }
+
+    @Contract("_, _ -> new")
     public static @NotNull Vector3D subtract(@NotNull Vector3D lhs, @NotNull Vector3D rhs) {
         Vector3D result = new Vector3D();
         result.x = lhs.x - rhs.x;

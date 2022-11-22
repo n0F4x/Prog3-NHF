@@ -28,6 +28,7 @@ public class RoomPanel extends JPanel {
         @Override
         public void componentShown(ComponentEvent e) {
             engine.recalculateGeometry();
+            repaint();
             requestFocus();
         }
     }

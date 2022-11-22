@@ -1,7 +1,7 @@
 title = "app settings"
 
 [camera]
-FOV = 119.0
+FOV = 140.0
 
 [camera.position]
 x = 0.0
@@ -19,52 +19,52 @@ w = 0.0
 tomlMessage = "start of new wall"
 
 [[room.walls.corners]]
-x = 0.0
-y = 0.0
-z = 0.0
+x = 100.0
+y = 200.0
+z = 300.0
 w = 0.0
 
 [[room.walls.corners]]
-x = 0.0
-y = 0.0
-z = 0.0
+x = -100.0
+y = -200.0
+z = -300.0
 w = 0.0
 
 [[room.walls.corners]]
-x = 0.0
-y = 0.0
-z = 0.0
+x = 100.0
+y = -200.0
+z = 300.0
 w = 0.0
 
 [[room.walls.corners]]
-x = 0.0
-y = 0.0
-z = 0.0
+x = -100.0
+y = 200.0
+z = -300.0
 w = 0.0
 
 [[room.walls]]
 tomlMessage = "start of new wall"
 
 [[room.walls.corners]]
-x = 0.0
-y = 0.0
-z = 0.0
+x = 300.0
+y = 200.0
+z = 100.0
 w = 0.0
 
 [[room.walls.corners]]
-x = 0.0
-y = 0.0
-z = 0.0
+x = -300.0
+y = -200.0
+z = -100.0
 w = 0.0
 
 [[room.walls.corners]]
-x = 0.0
-y = 0.0
-z = 0.0
+x = 300.0
+y = -200.0
+z = 100.0
 w = 0.0
 
 [[room.walls.corners]]
-x = 0.0
-y = 0.0
-z = 0.0
+x = -300.0
+y = 200.0
+z = -100.0
 w = 0.0

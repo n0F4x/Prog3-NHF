@@ -66,7 +66,7 @@ public class RoomPanel extends JPanel {
 
 
     public RoomPanel(ResourceManager resourceManager) {
-        this.engine = new Engine(resourceManager);
+        engine = new Engine(resourceManager);
 
         try {
             robot = new Robot();
@@ -76,6 +76,7 @@ public class RoomPanel extends JPanel {
 
         setBackground(Color.BLACK);
         setFocusable(true);
+
         addKeyListener(new KeyEventListener());
         addMouseMotionListener(new MouseEventListener());
         addComponentListener(new RoomComponentListener());

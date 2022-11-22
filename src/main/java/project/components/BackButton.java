@@ -5,13 +5,12 @@ import java.awt.*;
 
 public class BackButton extends JButton {
     public BackButton() {
-        super("Back");
-
-//            setIcon(new ImageIcon("src/main/resources/backButton.png"));
-        setFont(new Font("Calibri", Font.ITALIC, 30));
+        setIcon(new ImageIcon("src/main/resources/backButton.png"));
+        setFont(new Font("Calibri", Font.ITALIC, 50));
         setBackground(Color.GREEN);
-        setForeground(Color.BLACK);
+        setForeground(Color.WHITE);
         setUI(new StyledButtonUI());
+        setBounds(0,0, 200, 200);
         // TODO: Finish UI
 
         addActionListener(actionEvent -> {

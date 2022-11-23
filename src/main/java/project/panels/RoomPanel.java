@@ -17,12 +17,18 @@ public class RoomPanel extends JPanel {
         public void focusGained(FocusEvent e) {
             setCursor(Window.blankCursor);
             oldMousePosition = MouseInfo.getPointerInfo().getLocation();
+            if (robotEnabled) {
+                Point center = new Point((int) (getSize().getWidth() / 2.0) + getLocation().x, (int) (getSize().getHeight() / 2.0) + getLocation().y);
+                robot.mouseMove(center.x, center.y);
+            }
         }
 
         @Override
         public void focusLost(FocusEvent e) {
             setCursor(Window.defaultCursor);
-            robot.mouseMove(oldMousePosition.x, oldMousePosition.y);
+            if (robotEnabled) {
+                robot.mouseMove(oldMousePosition.x, oldMousePosition.y);
+            }
         }
     }
     public class RoomComponentListener extends ComponentAdapter {
@@ -52,7 +58,7 @@ public class RoomPanel extends JPanel {
         @Override
         public void mouseMoved(MouseEvent mouseEvent) {
             if (isFocusOwner()) {
-                Point center = new Point((int) (getSize().getWidth() / 2.0), (int) (getSize().getHeight() / 2.0));
+                Point center = new Point((int) (getSize().getWidth() / 2.0) + getLocation().x, (int) (getSize().getHeight() / 2.0) + getLocation().y);
                 engine.rotateCamera(new Point2D.Double(mouseEvent.getLocationOnScreen().getX() - center.getX(), mouseEvent.getLocationOnScreen().getY() - center.getY()));
                 repaint();
                 if (robotEnabled) {
@@ -78,8 +84,6 @@ public class RoomPanel extends JPanel {
         } catch (AWTException e) {
             robotEnabled = false;
         }
-
-        setDoubleBuffered(true);
 
         setBackground(Color.BLACK);
         setFocusable(true);

@@ -19,8 +19,6 @@ public class Window extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
 
-        RepaintManager.currentManager(this).setDoubleBufferingEnabled(true);
-
         add(new RootPanel(resourceManager));
 
         addWindowListener(new WindowAdapter() {

@@ -79,6 +79,8 @@ public class RoomPanel extends JPanel {
             robotEnabled = false;
         }
 
+        setDoubleBuffered(true);
+
         setBackground(Color.BLACK);
         setFocusable(true);
 
@@ -91,6 +93,8 @@ public class RoomPanel extends JPanel {
     @Override
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
+
+        ((Graphics2D) graphics).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         engine.getPerspective().paint(graphics);
         crosshair.paint(graphics);

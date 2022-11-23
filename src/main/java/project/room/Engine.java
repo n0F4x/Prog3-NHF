@@ -32,10 +32,10 @@ public class Engine {
     public void moveCamera(Direction direction) {
         double moveAmount = 1;
         switch (direction) {
-//            case Forward ->
-//            case Left ->
-//            case Backward ->
-//            case Right ->
+            case Forward -> camera.move(new Vector3D(Math.sin(camera.getRotation().y * Math.PI / 180.0), 0, -Math.cos(camera.getRotation().y * Math.PI / 180.0), 0));
+            case Left -> camera.move(new Vector3D(-Math.cos(camera.getRotation().y * Math.PI / 180.0), 0, -Math.sin(camera.getRotation().y * Math.PI / 180.0), 0));
+            case Backward -> camera.move(new Vector3D(-Math.sin(camera.getRotation().y * Math.PI / 180.0), 0, Math.cos(camera.getRotation().y * Math.PI / 180.0), 0));
+            case Right -> camera.move(new Vector3D(Math.cos(camera.getRotation().y * Math.PI / 180.0), 0, Math.sin(camera.getRotation().y * Math.PI / 180.0), 0));
             case Up -> camera.move(new Vector3D(0, -moveAmount, 0, 0));
             case Down -> camera.move(new Vector3D(0, moveAmount, 0, 0));
         }
@@ -43,7 +43,7 @@ public class Engine {
     }
 
     public void rotateCamera(Point2D.Double point) {
-        double scale = 0.05;
+        double scale = 0.1;
         camera.rotate(new Vector3D(point.y * scale, point.x * scale, 0, 0));
         recalculateGeometry();
     }

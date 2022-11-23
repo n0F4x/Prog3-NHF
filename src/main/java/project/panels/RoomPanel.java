@@ -38,12 +38,12 @@ public class RoomPanel extends JPanel {
         public void keyPressed(KeyEvent keyEvent) {
             switch (keyEvent.getKeyCode()) {
                 case KeyEvent.VK_ESCAPE -> ((RootPanel) getParent()).switchLayout("Settings");
-                case KeyEvent.VK_Q -> engine.moveCamera(Direction.Up);
                 case KeyEvent.VK_W -> engine.moveCamera(Direction.Forward);
-                case KeyEvent.VK_E -> engine.moveCamera(Direction.Down);
                 case KeyEvent.VK_A -> engine.moveCamera(Direction.Left);
                 case KeyEvent.VK_S -> engine.moveCamera(Direction.Backward);
                 case KeyEvent.VK_D -> engine.moveCamera(Direction.Right);
+                case KeyEvent.VK_SPACE -> engine.moveCamera(Direction.Up);
+                case KeyEvent.VK_SHIFT -> engine.moveCamera(Direction.Down);
             }
             repaint();
         }
@@ -52,17 +52,17 @@ public class RoomPanel extends JPanel {
         @Override
         public void mouseMoved(MouseEvent mouseEvent) {
             if (isFocusOwner()) {
+                Point center = new Point((int) (getSize().getWidth() / 2.0), (int) (getSize().getHeight() / 2.0));
                 engine.rotateCamera(new Point2D.Double(mouseEvent.getLocationOnScreen().getX() - center.getX(), mouseEvent.getLocationOnScreen().getY() - center.getY()));
                 repaint();
                 if (robotEnabled) {
-                    robot.mouseMove(center.x, center.y);
+                    robot.mouseMove(center.x + getLocationOnScreen().x, center.y + getLocationOnScreen().y);
                 }
             }
         }
     }
 
 
-    private final Point center = new Point((int) (Window.screenSize.getWidth() / 2.0), (int) (Window.screenSize.getHeight() / 2.0));
     private final Engine engine;
     private final Crosshair crosshair = new Crosshair();
     private Robot robot;
@@ -89,8 +89,8 @@ public class RoomPanel extends JPanel {
     }
 
     @Override
-    public void paint(Graphics graphics) {
-        super.paint(graphics);
+    public void paintComponent(Graphics graphics) {
+        super.paintComponent(graphics);
 
         engine.getPerspective().paint(graphics);
         crosshair.paint(graphics);

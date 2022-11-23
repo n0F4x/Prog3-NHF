@@ -1,17 +1,17 @@
 title = "app settings"
 
 [camera]
-FOV = 140
+FOV = 150
 
 [camera.position]
-x = 5.0
-y = 5.0
-z = 50.0
+x = 17.657863441807912
+y = 4.0
+z = 17.086460007966053
 w = 1.0
 
 [camera.rotation]
-x = 0.0
-y = 0.0
+x = 3249.149999999988
+y = -386.75000000000466
 z = 0.0
 w = 1.0
 

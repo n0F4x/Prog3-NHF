@@ -1,14 +1,14 @@
-package project.components;
+package project.views.components;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 
 public class StyledButtonUI extends BasicButtonUI {
     public static class RoundedBorder implements Border {
         private final int radius;
+
         public RoundedBorder(int radius) {
             this.radius = radius;
         }

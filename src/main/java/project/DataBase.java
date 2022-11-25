@@ -2,19 +2,18 @@ package project;
 
 import com.moandjiezana.toml.Toml;
 import com.moandjiezana.toml.TomlWriter;
-import project.room.Camera;
-import project.room.Room;
+import project.models.Camera;
+import project.models.Room;
 
 import java.io.*;
 
-public class ResourceManager {
+public class DataBase {
     public static class Resources {
-        public String title = "app settings";
-        public Camera camera = new Camera();
-        public Room room = new Room();
+        public final Camera camera = new Camera();
+        public final Room room = new Room();
     }
 
-    File settingsFile = new File("src/main/resources/settings.toml");
+    private final File settingsFile = new File("src/main/resources/settings.toml");
     public final Resources resources = new Toml().read(settingsFile).to(Resources.class);
 
 
@@ -25,6 +24,8 @@ public class ResourceManager {
 
         try {
             tomlWriter.write(resources, settingsFile);
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+            System.out.println("Failed saving resources to file");
+        }
     }
 }

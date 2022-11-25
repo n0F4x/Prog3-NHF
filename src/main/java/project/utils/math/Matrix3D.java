@@ -1,4 +1,4 @@
-package project.math;
+package project.utils.math;
 
 // https://github.com/titandino/3d-projection/blob/master/src/com/proj/math/Matrix3D.java
 
@@ -8,10 +8,6 @@ import org.jetbrains.annotations.NotNull;
 public class Matrix3D {
     private final double[][] matrix;
 
-
-    public Matrix3D() {
-        matrix = buildIdentityMatrix().matrix;
-    }
 
     public Matrix3D(double[][] matrix) {
         this.matrix = matrix.clone();
@@ -49,18 +45,6 @@ public class Matrix3D {
         matrix[0][3] = vector.x;
         matrix[1][3] = vector.y;
         matrix[2][3] = vector.z;
-
-        return new Matrix3D(matrix);
-    }
-
-    @Contract("_, _, _ -> new")
-    public static @NotNull Matrix3D buildScaleMatrix(double sX, double sY, double sZ) {
-        double[][] matrix = new double[4][4];
-
-        matrix[0][0] = sX;
-        matrix[1][1] = sY;
-        matrix[2][2] = sZ;
-        matrix[3][3] = 1;
 
         return new Matrix3D(matrix);
     }
@@ -107,23 +91,6 @@ public class Matrix3D {
         return new Matrix3D(matrix);
     }
 
-    @Contract("_, _ -> new")
-    public static @NotNull Matrix3D concat(@NotNull Matrix3D lhs, @NotNull Matrix3D rhs) {
-        double[][] result = buildIdentityMatrix().matrix;
-
-        for (int row = 0; row < 4; row++) {
-            for (int col = 0; col < 4; col++) {
-                double temp = 0;
-                for (int i = 0; i < 4; i++) {
-                    temp += lhs.matrix[row][i] * rhs.matrix[i][col];
-                }
-                result[row][col] = temp;
-            }
-        }
-
-        return new Matrix3D(result);
-    }
-
     @Contract("_ -> new")
     public @NotNull Matrix3D concat(@NotNull Matrix3D rhs) {
         double[][] result = buildIdentityMatrix().matrix;
@@ -141,14 +108,14 @@ public class Matrix3D {
         return new Matrix3D(result);
     }
 
-    @Contract("_, _ -> new")
-    public static @NotNull Vector3D concat(@NotNull Matrix3D lhs, @NotNull Vector3D rhs) {
+    @Contract("_ -> new")
+    public @NotNull Vector3D concat(@NotNull Vector3D rhs) {
         Vector3D result = new Vector3D();
 
-        result.x = lhs.matrix[0][0] * rhs.x + lhs.matrix[0][1] * rhs.y + lhs.matrix[0][2] * rhs.z + lhs.matrix[0][3] * rhs.w;
-        result.y = lhs.matrix[1][0] * rhs.x + lhs.matrix[1][1] * rhs.y + lhs.matrix[1][2] * rhs.z + lhs.matrix[1][3] * rhs.w;
-        result.z = lhs.matrix[2][0] * rhs.x + lhs.matrix[2][1] * rhs.y + lhs.matrix[2][2] * rhs.z + lhs.matrix[2][3] * rhs.w;
-        result.w = lhs.matrix[3][0] * rhs.x + lhs.matrix[3][1] * rhs.y + lhs.matrix[3][2] * rhs.z + lhs.matrix[3][3] * rhs.w;
+        result.x = matrix[0][0] * rhs.x + matrix[0][1] * rhs.y + matrix[0][2] * rhs.z + matrix[0][3] * rhs.w;
+        result.y = matrix[1][0] * rhs.x + matrix[1][1] * rhs.y + matrix[1][2] * rhs.z + matrix[1][3] * rhs.w;
+        result.z = matrix[2][0] * rhs.x + matrix[2][1] * rhs.y + matrix[2][2] * rhs.z + matrix[2][3] * rhs.w;
+        result.w = matrix[3][0] * rhs.x + matrix[3][1] * rhs.y + matrix[3][2] * rhs.z + matrix[3][3] * rhs.w;
 
         return result;
     }

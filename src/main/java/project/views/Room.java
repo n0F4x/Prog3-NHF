@@ -1,40 +1,39 @@
-package project.panels;
+package project.views;
 
-import project.ResourceManager;
 import project.Window;
-import project.room.Crosshair;
-import project.room.Engine;
-import project.math.Direction;
+import project.utils.tools.Cursor;
+import project.views.components.Crosshair;
+import project.utils.math.Direction;
+import project.views.components.Perspective;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Point2D;
 
-public class RoomPanel extends JPanel {
+public class Room extends JPanel {
     public class RoomFocusListener implements FocusListener {
         @Override
         public void focusGained(FocusEvent e) {
-            setCursor(Window.blankCursor);
+            setCursor(Cursor.getBlankCursor());
             oldMousePosition = MouseInfo.getPointerInfo().getLocation();
-            if (robotEnabled) {
+            if (robot != null) {
                 Point center = new Point((int) (getSize().getWidth() / 2.0) + getLocation().x, (int) (getSize().getHeight() / 2.0) + getLocation().y);
                 robot.mouseMove(center.x, center.y);
             }
         }
-
         @Override
         public void focusLost(FocusEvent e) {
-            setCursor(Window.defaultCursor);
-            if (robotEnabled) {
+            setCursor(Cursor.getDefaultCursor());
+            if (robot != null) {
                 robot.mouseMove(oldMousePosition.x, oldMousePosition.y);
             }
         }
     }
     public class RoomComponentListener extends ComponentAdapter {
         @Override
-        public void componentShown(ComponentEvent e) {
-            engine.recalculateGeometry();
+        public void componentShown(ComponentEvent componentEvent) {
+            perspective.update(SwingUtilities.getWindowAncestor((Component) componentEvent.getSource()).getSize());
             repaint();
             requestFocus();
         }
@@ -43,14 +42,15 @@ public class RoomPanel extends JPanel {
         @Override
         public void keyPressed(KeyEvent keyEvent) {
             switch (keyEvent.getKeyCode()) {
-                case KeyEvent.VK_ESCAPE -> ((RootPanel) getParent()).switchLayout("Settings");
-                case KeyEvent.VK_W -> engine.moveCamera(Direction.Forward);
-                case KeyEvent.VK_A -> engine.moveCamera(Direction.Left);
-                case KeyEvent.VK_S -> engine.moveCamera(Direction.Backward);
-                case KeyEvent.VK_D -> engine.moveCamera(Direction.Right);
-                case KeyEvent.VK_SPACE -> engine.moveCamera(Direction.Up);
-                case KeyEvent.VK_SHIFT -> engine.moveCamera(Direction.Down);
+                case KeyEvent.VK_ESCAPE -> ((Window) getTopLevelAncestor()).switchView("Settings");
+                case KeyEvent.VK_W -> controller.moveCamera(Direction.Forward);
+                case KeyEvent.VK_A -> controller.moveCamera(Direction.Left);
+                case KeyEvent.VK_S -> controller.moveCamera(Direction.Backward);
+                case KeyEvent.VK_D -> controller.moveCamera(Direction.Right);
+                case KeyEvent.VK_SPACE -> controller.moveCamera(Direction.Up);
+                case KeyEvent.VK_SHIFT -> controller.moveCamera(Direction.Down);
             }
+            perspective.update(SwingUtilities.getWindowAncestor((Component) keyEvent.getSource()).getSize());
             repaint();
         }
     }
@@ -59,31 +59,27 @@ public class RoomPanel extends JPanel {
         public void mouseMoved(MouseEvent mouseEvent) {
             if (isFocusOwner()) {
                 Point center = new Point((int) (getSize().getWidth() / 2.0) + getLocation().x, (int) (getSize().getHeight() / 2.0) + getLocation().y);
-                engine.rotateCamera(new Point2D.Double(mouseEvent.getLocationOnScreen().getX() - center.getX(), mouseEvent.getLocationOnScreen().getY() - center.getY()));
+                controller.rotateCamera(new Point2D.Double(mouseEvent.getLocationOnScreen().getX() - center.getX(), mouseEvent.getLocationOnScreen().getY() - center.getY()));
+                perspective.update(SwingUtilities.getWindowAncestor((Component) mouseEvent.getSource()).getSize());
                 repaint();
-                if (robotEnabled) {
+                if (robot != null) {
                     robot.mouseMove(center.x + getLocationOnScreen().x, center.y + getLocationOnScreen().y);
                 }
             }
         }
     }
 
-
-    private final Engine engine;
+    private final project.controllers.Room controller = new project.controllers.Room();
+    private final Perspective perspective = new Perspective(controller.getRoom(), controller.getCamera());
     private final Crosshair crosshair = new Crosshair();
     private Robot robot;
-    private boolean robotEnabled = true;
     private Point oldMousePosition = new Point();
 
 
-    public RoomPanel(ResourceManager resourceManager) {
-        engine = new Engine(resourceManager);
-
+    public Room() {
         try {
             robot = new Robot();
-        } catch (AWTException e) {
-            robotEnabled = false;
-        }
+        } catch (AWTException ignored) {}
 
         setBackground(Color.BLACK);
         setFocusable(true);
@@ -100,7 +96,7 @@ public class RoomPanel extends JPanel {
 
         ((Graphics2D) graphics).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        engine.getPerspective().paint(graphics);
+        perspective.paint(graphics);
         crosshair.paint(graphics);
     }
 }

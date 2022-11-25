@@ -1,4 +1,4 @@
-package project.math;
+package project.utils.math;
 
 public enum Direction {
     Forward,

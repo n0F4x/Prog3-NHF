@@ -1,31 +1,35 @@
 package project;
 
-import project.panels.RootPanel;
+import project.views.Room;
+import project.views.Settings;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
 
 public class Window extends JFrame {
-    public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    public static final Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), "blank cursor");
-    public static final Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+    private final JPanel panel = new JPanel(new CardLayout());
 
 
-    public Window(ResourceManager resourceManager) {
+    public Window() {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
 
-        add(new RootPanel(resourceManager));
+        panel.add(new Room(), "Room");
+        panel.add(new Settings(), "Settings");
+        add(panel);
 
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                resourceManager.save();
+                App.database.save();
             }
         });
+    }
+
+    public void switchView(String name) {
+        ((CardLayout) panel.getLayout()).show(panel, name);
     }
 }

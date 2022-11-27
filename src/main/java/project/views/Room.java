@@ -22,6 +22,7 @@ public class Room extends JPanel {
                 robot.mouseMove(center.x, center.y);
             }
         }
+
         @Override
         public void focusLost(FocusEvent e) {
             setCursor(Cursor.getDefaultCursor());
@@ -30,41 +31,49 @@ public class Room extends JPanel {
             }
         }
     }
+
     public class RoomComponentListener extends ComponentAdapter {
         @Override
         public void componentShown(ComponentEvent componentEvent) {
-            perspective.update(SwingUtilities.getWindowAncestor((Component) componentEvent.getSource()).getSize());
-            repaint();
             requestFocus();
         }
     }
+
     public class KeyEventListener extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent keyEvent) {
             switch (keyEvent.getKeyCode()) {
                 case KeyEvent.VK_ESCAPE -> ((Window) getTopLevelAncestor()).switchView("Settings");
-                case KeyEvent.VK_W -> controller.moveCamera(Direction.Forward);
-                case KeyEvent.VK_A -> controller.moveCamera(Direction.Left);
-                case KeyEvent.VK_S -> controller.moveCamera(Direction.Backward);
-                case KeyEvent.VK_D -> controller.moveCamera(Direction.Right);
-                case KeyEvent.VK_SPACE -> controller.moveCamera(Direction.Up);
-                case KeyEvent.VK_SHIFT -> controller.moveCamera(Direction.Down);
+                case KeyEvent.VK_W -> controller.beginMovement(Direction.Forward);
+                case KeyEvent.VK_A -> controller.beginMovement(Direction.Left);
+                case KeyEvent.VK_S -> controller.beginMovement(Direction.Backward);
+                case KeyEvent.VK_D -> controller.beginMovement(Direction.Right);
+                case KeyEvent.VK_SPACE -> controller.beginMovement(Direction.Up);
+                case KeyEvent.VK_SHIFT -> controller.beginMovement(Direction.Down);
             }
-            perspective.update(SwingUtilities.getWindowAncestor((Component) keyEvent.getSource()).getSize());
-            repaint();
+        }
+
+        @Override
+        public void keyReleased(KeyEvent keyEvent) {
+            switch (keyEvent.getKeyCode()) {
+                case KeyEvent.VK_ESCAPE -> ((Window) getTopLevelAncestor()).switchView("Settings");
+                case KeyEvent.VK_W -> controller.stopMovement(Direction.Forward);
+                case KeyEvent.VK_A -> controller.stopMovement(Direction.Left);
+                case KeyEvent.VK_S -> controller.stopMovement(Direction.Backward);
+                case KeyEvent.VK_D -> controller.stopMovement(Direction.Right);
+                case KeyEvent.VK_SPACE -> controller.stopMovement(Direction.Up);
+                case KeyEvent.VK_SHIFT -> controller.stopMovement(Direction.Down);
+            }
         }
     }
+
     public class MouseEventListener extends MouseMotionAdapter {
         @Override
         public void mouseMoved(MouseEvent mouseEvent) {
-            if (isFocusOwner()) {
-                Point center = new Point((int) (getSize().getWidth() / 2.0) + getLocation().x, (int) (getSize().getHeight() / 2.0) + getLocation().y);
-                controller.rotateCamera(new Point2D.Double(mouseEvent.getLocationOnScreen().getX() - center.getX(), mouseEvent.getLocationOnScreen().getY() - center.getY()));
-                perspective.update(SwingUtilities.getWindowAncestor((Component) mouseEvent.getSource()).getSize());
-                repaint();
-                if (robot != null) {
-                    robot.mouseMove(center.x + getLocationOnScreen().x, center.y + getLocationOnScreen().y);
-                }
+            Point center = new Point((int) (getSize().getWidth() / 2.0) + getLocation().x, (int) (getSize().getHeight() / 2.0) + getLocation().y);
+            controller.rotateCamera(new Point2D.Double(mouseEvent.getLocationOnScreen().getX() - center.getX(), mouseEvent.getLocationOnScreen().getY() - center.getY()));
+            if (robot != null) {
+                robot.mouseMove(center.x + getLocationOnScreen().x, center.y + getLocationOnScreen().y);
             }
         }
     }
@@ -98,5 +107,10 @@ public class Room extends JPanel {
 
         perspective.paint(graphics);
         crosshair.paint(graphics);
+    }
+
+    public void update() {
+        controller.update();
+        perspective.update(SwingUtilities.getWindowAncestor(this).getSize());
     }
 }

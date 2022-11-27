@@ -2,9 +2,10 @@ package project.views.components;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.function.Supplier;
 
 public class BackButton extends JButton {
-    public BackButton(Container cardHolder) {
+    public BackButton(Supplier<Container> rootSupplier) {
         setIcon(new ImageIcon("src/main/resources/backButton.png"));
         setFont(new Font("Calibri", Font.ITALIC, 50));
         setBackground(Color.GREEN);
@@ -14,6 +15,6 @@ public class BackButton extends JButton {
 
         // TODO: Finish UI
 
-        addActionListener(actionEvent -> ((CardLayout) (cardHolder.getLayout())).previous(cardHolder));
+        addActionListener(actionEvent -> ((CardLayout) (rootSupplier.get().getLayout())).previous(rootSupplier.get()));
     }
 }

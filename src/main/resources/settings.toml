@@ -1,15 +1,15 @@
 [camera]
-FOV = 150
+FOV = 136
 
 [camera.position]
-x = 21.695270064850465
-y = 4.0
-z = 13.03913937721513
+x = -1.9762939704993892
+y = 3.7455000000017935
+z = 25.51011231694712
 w = 1.0
 
 [camera.rotation]
-x = 3251.0499999999893
-y = -407.95000000000385
+x = -2.9920000000015476
+y = 361.52299999999667
 z = 0.0
 w = 1.0
 [[room.walls]]
@@ -64,4 +64,31 @@ w = 1.0
 x = 10.0
 y = 10.0
 z = 0.0
+w = 1.0
+
+[[room.walls]]
+tomlMessage = "start of new wall"
+
+[[room.walls.corners]]
+x = 10.0
+y = -10.0
+z = -10.0
+w = 1.0
+
+[[room.walls.corners]]
+x = 10.0
+y = 10.0
+z = -10.0
+w = 1.0
+
+[[room.walls.corners]]
+x = -10.0
+y = 10.0
+z = -10.0
+w = 1.0
+
+[[room.walls.corners]]
+x = -10.0
+y = -10.0
+z = -10.0
 w = 1.0

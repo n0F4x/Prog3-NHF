@@ -10,15 +10,15 @@ public class Camera {
     private int FOV = 90;
 
 
-    public Vector3D getPosition() {
+    public synchronized Vector3D getPosition() {
         return position;
     }
 
-    public Vector3D getRotation() {
+    public synchronized Vector3D getRotation() {
         return rotation;
     }
 
-    public int getFOV() {
+    public synchronized int getFOV() {
         return FOV;
     }
 
@@ -30,15 +30,15 @@ public class Camera {
         return 200;
     }
 
-    public void setFOV(int FOV) {
+    public synchronized void setFOV(int FOV) {
         this.FOV = FOV;
     }
 
-    public void move(Vector3D amount) {
+    public synchronized void move(Vector3D amount) {
         position = position.add(amount);
     }
 
-    public void rotate(Vector3D amount) {
+    public synchronized void rotate(Vector3D amount) {
         rotation = rotation.add(amount);
     }
 }

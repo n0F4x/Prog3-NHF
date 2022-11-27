@@ -9,17 +9,19 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class Window extends JFrame {
-    private final JPanel panel = new JPanel(new CardLayout());
+    private final Room room = new Room();
 
 
     public Window() {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setResizable(false);
         setUndecorated(true);
+        setIgnoreRepaint(true);
 
-        panel.add(new Room(), "Room");
-        panel.add(new Settings(), "Settings");
-        add(panel);
+        getContentPane().setLayout(new CardLayout());
+        add(room, "Room");
+        add(new Settings(), "Settings");
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -30,6 +32,12 @@ public class Window extends JFrame {
     }
 
     public void switchView(String name) {
-        ((CardLayout) panel.getLayout()).show(panel, name);
+        ((CardLayout) getContentPane().getLayout()).show(getContentPane(), name);
+    }
+
+    public void update() {
+        if (room.isVisible()) {
+            room.update();
+        }
     }
 }

@@ -87,7 +87,6 @@ public class Room extends JPanel {
         setFocusable(true);
 
         addKeyListener(new KeyEventListener());
-//        addMouseMotionListener(new MouseEventListener());
         addComponentListener(new RoomComponentListener());
         addFocusListener(new RoomFocusListener());
     }

@@ -2,14 +2,14 @@
 FOV = 136
 
 [camera.position]
-x = -16.043173344684323
+x = 32.846453414825824
 y = 3.7475000000017977
-z = 21.38933276470727
+z = 30.691854316315315
 w = 1.0
 
 [camera.rotation]
-x = 359.3079999999975
-y = 28.022999999996824
+x = 357.1079999999973
+y = -51.97700000000324
 z = 0.0
 w = 1.0
 [[room.walls]]
@@ -91,4 +91,139 @@ w = 1.0
 x = -10.0
 y = -10.0
 z = -10.0
+w = 1.0
+
+[[room.walls]]
+tomlMessage = "start of new wall"
+
+[[room.walls.corners]]
+x = 10.0
+y = 0.0
+z = 0.0
+w = 1.0
+
+[[room.walls.corners]]
+x = 10.0
+y = -10.0
+z = -10.0
+w = 1.0
+
+[[room.walls.corners]]
+x = -10.0
+y = -10.0
+z = -10.0
+w = 1.0
+
+[[room.walls.corners]]
+x = 0.0
+y = 0.0
+z = 0.0
+w = 1.0
+
+[[room.walls]]
+tomlMessage = "start of new wall"
+
+[[room.walls.corners]]
+x = 0.0
+y = 0.0
+z = 0.0
+w = 1.0
+
+[[room.walls.corners]]
+x = 0.0
+y = 10.0
+z = 0.0
+w = 1.0
+
+[[room.walls.corners]]
+x = 0.0
+y = 10.0
+z = 30.0
+w = 1.0
+
+[[room.walls.corners]]
+x = 0.0
+y = 0.0
+z = 30.0
+w = 1.0
+
+[[room.walls]]
+tomlMessage = "start of new wall"
+
+[[room.walls.corners]]
+x = -10.0
+y = -10.0
+z = -10.0
+w = 1.0
+
+[[room.walls.corners]]
+x = -10.0
+y = 10.0
+z = -10.0
+w = 1.0
+
+[[room.walls.corners]]
+x = -10.0
+y = 10.0
+z = 30.0
+w = 1.0
+
+[[room.walls.corners]]
+x = -10.0
+y = -10.0
+z = 30.0
+w = 1.0
+
+[[room.walls]]
+tomlMessage = "start of new wall"
+
+[[room.walls.corners]]
+x = -10.0
+y = -10.0
+z = -10.0
+w = 1.0
+
+[[room.walls.corners]]
+x = 0.0
+y = 0.0
+z = 0.0
+w = 1.0
+
+[[room.walls.corners]]
+x = 0.0
+y = 0.0
+z = 30.0
+w = 1.0
+
+[[room.walls.corners]]
+x = -10.0
+y = -10.0
+z = 30.0
+w = 1.0
+
+[[room.walls]]
+tomlMessage = "start of new wall"
+
+[[room.walls.corners]]
+x = -10.0
+y = 10.0
+z = 30.0
+w = 1.0
+
+[[room.walls.corners]]
+x = 0.0
+y = 10.0
+z = 30.0
+w = 1.0
+
+[[room.walls.corners]]
+x = 0.0
+y = 0.0
+z = 30.0
+w = 1.0
+
+[[room.walls.corners]]
+x = -10.0
+y = -10.0
+z = 30.0
 w = 1.0

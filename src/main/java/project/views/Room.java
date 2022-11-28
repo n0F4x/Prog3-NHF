@@ -21,6 +21,7 @@ public class Room extends JPanel {
                 Point center = new Point((int) (getSize().getWidth() / 2.0) + getLocation().x, (int) (getSize().getHeight() / 2.0) + getLocation().y);
                 robot.mouseMove(center.x, center.y);
             }
+            focused = true;
         }
 
         @Override
@@ -29,6 +30,7 @@ public class Room extends JPanel {
             if (robot != null) {
                 robot.mouseMove(oldMousePosition.x, oldMousePosition.y);
             }
+            focused = false;
         }
     }
 
@@ -67,34 +69,25 @@ public class Room extends JPanel {
         }
     }
 
-    public class MouseEventListener extends MouseMotionAdapter {
-        @Override
-        public void mouseMoved(MouseEvent mouseEvent) {
-            Point center = new Point((int) (getSize().getWidth() / 2.0) + getLocation().x, (int) (getSize().getHeight() / 2.0) + getLocation().y);
-            controller.rotateCamera(new Point2D.Double(mouseEvent.getLocationOnScreen().getX() - center.getX(), mouseEvent.getLocationOnScreen().getY() - center.getY()));
-            if (robot != null) {
-                robot.mouseMove(center.x + getLocationOnScreen().x, center.y + getLocationOnScreen().y);
-            }
-        }
-    }
-
     private final project.controllers.Room controller = new project.controllers.Room();
     private final Perspective perspective = new Perspective(controller.getRoom(), controller.getCamera());
     private final Crosshair crosshair = new Crosshair();
     private Robot robot;
+    private boolean focused = false;
     private Point oldMousePosition = new Point();
 
 
     public Room() {
         try {
             robot = new Robot();
-        } catch (AWTException ignored) {}
+        } catch (AWTException ignored) {
+        }
 
         setBackground(Color.BLACK);
         setFocusable(true);
 
         addKeyListener(new KeyEventListener());
-        addMouseMotionListener(new MouseEventListener());
+//        addMouseMotionListener(new MouseEventListener());
         addComponentListener(new RoomComponentListener());
         addFocusListener(new RoomFocusListener());
     }
@@ -110,7 +103,16 @@ public class Room extends JPanel {
     }
 
     public void update() {
-        controller.update();
+        if (focused) {
+            controller.update();
+
+            Point center = new Point((int) (getSize().getWidth() / 2.0) + getLocation().x, (int) (getSize().getHeight() / 2.0) + getLocation().y);
+            controller.rotateCamera(new Point2D.Double(MouseInfo.getPointerInfo().getLocation().getX() - center.getX(), MouseInfo.getPointerInfo().getLocation().getY() - center.getY()));
+            if (robot != null) {
+                robot.mouseMove(center.x + getLocationOnScreen().x, center.y + getLocationOnScreen().y);
+            }
+        }
+
         perspective.update(SwingUtilities.getWindowAncestor(this).getSize());
     }
 }

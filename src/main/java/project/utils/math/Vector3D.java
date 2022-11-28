@@ -20,6 +20,13 @@ public class Vector3D {
         this.w = w;
     }
 
+    public Vector3D(Vector3D other) {
+        x = other.x;
+        y = other.y;
+        z = other.z;
+        w = other.w;
+    }
+
     @Contract("_ -> new")
     public @NotNull Vector3D multiply(double rhs) {
         Vector3D result = new Vector3D();

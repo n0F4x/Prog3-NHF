@@ -27,7 +27,7 @@ public class Room {
     }
 
     private void moveCamera(@NotNull Direction direction) {
-        double moveAmount = 0.0001;
+        double moveAmount = 15.0 / App.FPS;
         switch (direction) {
             case Forward ->
                     camera.move(new Vector3D(Math.sin(camera.getRotation().y * Math.PI / 180.0) * moveAmount, 0, -Math.cos(camera.getRotation().y * Math.PI / 180.0) * moveAmount, 0));

@@ -2,7 +2,7 @@ package project.models;
 
 import project.utils.math.Vector3D;
 
-public class Camera {
+public class Camera implements Cloneable {
     private Vector3D position = new Vector3D();
     private Vector3D rotation = new Vector3D();
     public static final int minFOV = 60;
@@ -40,5 +40,18 @@ public class Camera {
 
     public synchronized void rotate(Vector3D amount) {
         rotation = rotation.add(amount);
+    }
+
+    @Override
+    public Camera clone() {
+        try {
+            Camera clone = (Camera) super.clone();
+            clone.position = new Vector3D(position);
+            clone.rotation = new Vector3D(rotation);
+            clone.FOV = FOV;
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

@@ -4,16 +4,17 @@ public class App {
     public final static DataBase database = new DataBase();
     public final static Window window = new Window();
     private final static Engine engine = new Engine();
+    public static final int FPS = 60;
 
 
     private static void refresh() {
-        int FPS = 60;
         long lastLoopTime = System.currentTimeMillis();
         while (window.isVisible()) {
             window.update();
             window.repaint();
 
-            long sleepTime = 1000 / FPS - System.currentTimeMillis() - lastLoopTime;
+            long currentLoopTime = System.currentTimeMillis();
+            long sleepTime = 1000 / FPS - (currentLoopTime - lastLoopTime);
             if (sleepTime > 1) {
                 try {
                     Thread.sleep(sleepTime);
@@ -21,6 +22,7 @@ public class App {
                     throw new RuntimeException(e);
                 }
             }
+            lastLoopTime = currentLoopTime;
         }
     }
 

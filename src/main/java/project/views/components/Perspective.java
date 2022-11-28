@@ -14,6 +14,7 @@ import java.util.Collections;
 public class Perspective {
     private final Room room;
     private final Camera camera;
+    private Camera snapshot = new Camera();
     private final Collection<Polygon> polygons = Collections.synchronizedList(new ArrayList<>());
 
 
@@ -30,31 +31,34 @@ public class Perspective {
     }
 
     public void update(@NotNull Dimension screenSize) {
-        synchronized (polygons) {
-            polygons.clear();
+        if (!snapshot.equals(camera)) {
+            snapshot = camera.clone();
+            synchronized (polygons) {
+                polygons.clear();
 
-            Matrix3D perspectiveMatrix = Matrix3D.buildPerspectiveMatrix(camera.getFOV(), (screenSize.getWidth()) / (screenSize.getHeight()), camera.getNear(), camera.getFar());
-            Matrix3D viewMatrix = calcViewMatrix();
-            Matrix3D projectionMatrix = perspectiveMatrix.concat(viewMatrix);
+                Matrix3D perspectiveMatrix = Matrix3D.buildPerspectiveMatrix(camera.getFOV(), (screenSize.getWidth()) / (screenSize.getHeight()), camera.getNear(), camera.getFar());
+                Matrix3D viewMatrix = calcViewMatrix();
+                Matrix3D projectionMatrix = perspectiveMatrix.concat(viewMatrix);
 
-            for (Room.Wall wall : room.walls) {
-                boolean valid = false;
-                int[] x_points = new int[4];
-                int[] y_points = new int[4];
-                for (int i = 0; i < 4; i++) {
-                    Vector3D temp = projectionMatrix.concat(wall.corners.get(i));
-                    x_points[i] = (int) ((temp.x / temp.w + 1.0) / 2.0 * screenSize.width);
-                    y_points[i] = (int) ((temp.y / temp.w + 1.0) / 2.0 * screenSize.height);
-                    if (
-                            !valid && temp.z > camera.getNear() && temp.z < camera.getFar()
-                                    && 0 <= x_points[i] && x_points[i] <= screenSize.width
-                                    && 0 <= y_points[i] && y_points[i] <= screenSize.height
-                    ) {
-                        valid = true;
+                for (Room.Wall wall : room.walls) {
+                    boolean valid = false;
+                    int[] x_points = new int[4];
+                    int[] y_points = new int[4];
+                    for (int i = 0; i < 4; i++) {
+                        Vector3D temp = projectionMatrix.concat(wall.corners.get(i));
+                        x_points[i] = (int) ((temp.x / temp.w + 1.0) / 2.0 * screenSize.width);
+                        y_points[i] = (int) ((temp.y / temp.w + 1.0) / 2.0 * screenSize.height);
+                        if (
+                                !valid && temp.z > camera.getNear() && temp.z < camera.getFar()
+                                        && 0 <= x_points[i] && x_points[i] <= screenSize.width
+                                        && 0 <= y_points[i] && y_points[i] <= screenSize.height
+                        ) {
+                            valid = true;
+                        }
                     }
-                }
-                if (valid) {
-                    polygons.add(new Polygon(x_points, y_points, 4));
+                    if (valid) {
+                        polygons.add(new Polygon(x_points, y_points, 4));
+                    }
                 }
             }
         }

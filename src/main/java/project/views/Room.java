@@ -103,7 +103,7 @@ public class Room extends JPanel {
     }
 
     public void update() {
-        if (focused) {
+        if (focused && hasFocus()) {
             controller.update();
 
             Point center = new Point((int) (getSize().getWidth() / 2.0) + getLocation().x, (int) (getSize().getHeight() / 2.0) + getLocation().y);

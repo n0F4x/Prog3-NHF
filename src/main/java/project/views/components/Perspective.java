@@ -50,8 +50,8 @@ public class Perspective {
                         y_points[i] = (int) ((temp.y / temp.w + 1.0) / 2.0 * screenSize.height);
                         if (
                                 !valid && temp.z > camera.getNear() && temp.z < camera.getFar()
-                                        && 0 <= x_points[i] && x_points[i] <= screenSize.width
-                                        && 0 <= y_points[i] && y_points[i] <= screenSize.height
+//                                        && 0 <= x_points[i] && x_points[i] <= screenSize.width
+//                                        && 0 <= y_points[i] && y_points[i] <= screenSize.height
                         ) {
                             valid = true;
                         }

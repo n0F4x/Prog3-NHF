@@ -52,7 +52,7 @@ public class Room {
 
     public void rotateCamera(@NotNull Point2D.Double mouseMoved) {
         double scale = 0.1;
-        camera.rotate(new Vector3D(0, mouseMoved.x * scale, 0, 0));
+        camera.rotate(new Vector3D(mouseMoved.y * scale, mouseMoved.x * scale, 0, 0));
     }
 
     public void update() {

@@ -6,7 +6,7 @@ public class Camera implements Cloneable {
     private Vector3D position = new Vector3D();
     private Vector3D rotation = new Vector3D();
     public static final int minFOV = 60;
-    public static final int maxFOV = 150;
+    public static final int maxFOV = 179;
     private int FOV = 90;
 
 

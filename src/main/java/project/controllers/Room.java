@@ -27,7 +27,7 @@ public class Room {
     }
 
     private void moveCamera(@NotNull Direction direction) {
-        double moveAmount = 15.0 / App.FPS;
+        double moveAmount = 15.0 / App.UPS;
         switch (direction) {
             case Forward ->
                     camera.move(new Vector3D(Math.sin(camera.getRotation().y * Math.PI / 180.0) * moveAmount, 0, -Math.cos(camera.getRotation().y * Math.PI / 180.0) * moveAmount, 0));
@@ -52,7 +52,7 @@ public class Room {
 
     public void rotateCamera(@NotNull Point2D.Double mouseMoved) {
         double scale = 0.1;
-        camera.rotate(new Vector3D(mouseMoved.y * scale, mouseMoved.x * scale, 0, 0));
+        camera.rotate(new Vector3D(0, mouseMoved.x * scale, 0, 0));
     }
 
     public void update() {

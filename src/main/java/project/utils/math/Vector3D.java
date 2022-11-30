@@ -27,13 +27,25 @@ public class Vector3D {
         w = other.w;
     }
 
+    public double magnitude() {
+        return Math.sqrt(x*x + y*y + z*z);
+    }
+
     @Contract("_ -> new")
     public @NotNull Vector3D multiply(double rhs) {
-        Vector3D result = new Vector3D();
+        Vector3D result = new Vector3D(this);
         result.x = x * rhs;
         result.y = y * rhs;
         result.z = z * rhs;
         return result;
+    }
+
+    public double dotProduct(@NotNull Vector3D rhs) {
+        return x * rhs.x + y * rhs.y + z * rhs.z;
+    }
+
+    public double angle(@NotNull Vector3D rhs) {
+        return Math.acos((dotProduct(rhs)) / (magnitude() * rhs.magnitude()));
     }
 
     @Contract("_ -> new")

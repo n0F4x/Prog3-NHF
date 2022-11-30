@@ -108,7 +108,10 @@ public class Room extends JPanel {
             Point center = new Point((int) (getSize().getWidth() / 2.0) + getLocation().x, (int) (getSize().getHeight() / 2.0) + getLocation().y);
             controller.rotateCamera(new Point2D.Double(MouseInfo.getPointerInfo().getLocation().getX() - center.getX(), MouseInfo.getPointerInfo().getLocation().getY() - center.getY()));
             if (robot != null) {
-                robot.mouseMove(center.x + getLocationOnScreen().x, center.y + getLocationOnScreen().y);
+                try {
+                    robot.mouseMove(center.x + getLocationOnScreen().x, center.y + getLocationOnScreen().y);
+                } catch (IllegalComponentStateException ignored) {
+                }
             }
         }
 

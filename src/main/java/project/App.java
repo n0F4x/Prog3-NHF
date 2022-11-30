@@ -4,7 +4,7 @@ public class App {
     public final static DataBase database = new DataBase();
     public final static Window window = new Window();
     private final static Engine engine = new Engine();
-    public static final int FPS = 60;
+    public static final int UPS = 60;
 
 
     private static void refresh() {
@@ -14,7 +14,7 @@ public class App {
             window.repaint();
 
             long currentLoopTime = System.currentTimeMillis();
-            long sleepTime = 1000 / FPS - (currentLoopTime - lastLoopTime);
+            long sleepTime = 1000 / UPS - (currentLoopTime - lastLoopTime);
             if (sleepTime > 1) {
                 try {
                     Thread.sleep(sleepTime);

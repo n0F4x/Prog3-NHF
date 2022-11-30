@@ -15,11 +15,11 @@ public class Matrix3D {
 
     @Contract(" -> new")
     public static @NotNull Matrix3D buildIdentityMatrix() {
-        return new Matrix3D(new double[][] {
-                { 1, 0, 0, 0 },
-                { 0, 1, 0, 0 },
-                { 0, 0, 1, 0 },
-                { 0, 0, 0, 1 }
+        return new Matrix3D(new double[][]{
+                {1, 0, 0, 0},
+                {0, 1, 0, 0},
+                {0, 0, 1, 0},
+                {0, 0, 0, 1}
         });
     }
 
@@ -91,6 +91,12 @@ public class Matrix3D {
         return new Matrix3D(matrix);
     }
 
+    public static @NotNull Matrix3D buildRotationMatrix(@NotNull Vector3D rotation) {
+        return Matrix3D.buildRotationXMatrix(rotation.x)
+                .concat(Matrix3D.buildRotationYMatrix(rotation.y))
+                .concat(Matrix3D.buildRotationZMatrix(rotation.z));
+    }
+
     @Contract("_ -> new")
     public @NotNull Matrix3D concat(@NotNull Matrix3D rhs) {
         double[][] result = buildIdentityMatrix().matrix;
@@ -118,5 +124,56 @@ public class Matrix3D {
         result.w = matrix[3][0] * rhs.x + matrix[3][1] * rhs.y + matrix[3][2] * rhs.z + matrix[3][3] * rhs.w;
 
         return result;
+    }
+
+    /**
+     * Returns new Vector3D() either if no solution or infinite solutions exist
+     */
+    public @NotNull Vector3D eliminate(@NotNull Vector3D rhs) {
+        double[][] result = {
+                { matrix[0][0], matrix[0][1], matrix[0][2], matrix[0][3], rhs.x },
+                { matrix[1][0], matrix[1][1], matrix[1][2], matrix[1][3], rhs.y },
+                { matrix[2][0], matrix[2][1], matrix[2][2], matrix[2][3], rhs.z },
+                { matrix[3][0], matrix[3][1], matrix[3][2], matrix[3][3], rhs.w }
+        };
+        int i, j, k, c;
+
+        // Performing elementary operations
+        for (i = 0; i < 4; i++) {
+            if (result[i][i] == 0) {
+                c = 1;
+                while ((i + c) < 4 && result[i + c][i] == 0)
+                    c++;
+                if ((i + c) == 4) {
+                    return new Vector3D();
+                }
+                for (j = i, k = 0; k <= 4; k++) {
+                    double temp = result[j][k];
+                    result[j][k] = result[j + c][k];
+                    result[j + c][k] = temp;
+                }
+            }
+
+            for (j = 0; j < 4; j++) {
+
+                // Excluding all i == j
+                if (i != j) {
+
+                    // Converting Matrix to reduced row
+                    // echelon form(diagonal matrix)
+                    double p = result[j][i] / result[i][i];
+
+                    for (k = 0; k <= 4; k++)
+                        result[j][k] = result[j][k] - (result[i][k]) * p;
+                }
+            }
+        }
+
+        return new Vector3D(
+                result[0][4] / result[0][0],
+                result[1][4] / result[1][1],
+                result[2][4] / result[2][2],
+                1
+        );
     }
 }

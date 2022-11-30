@@ -19,7 +19,7 @@ public class Room extends JPanel {
             setCursor(Cursor.getBlankCursor());
             oldMousePosition = MouseInfo.getPointerInfo().getLocation();
             if (robot != null) {
-                @NotNull Point center = new Point((int) (getSize().getWidth() / 2.0) + getLocation().x, (int) (getSize().getHeight() / 2.0) + getLocation().y);
+                @NotNull Point center = new Point((int) (getSize().getWidth() / 2.0) + getLocationOnScreen().x, (int) (getSize().getHeight() / 2.0) + getLocationOnScreen().y);
                 robot.mouseMove(center.x, center.y);
             }
             focused = true;
@@ -104,13 +104,13 @@ public class Room extends JPanel {
         if (focused && hasFocus()) {
             controller.moveCamera();
 
-            @NotNull Point center = new Point((int) (getSize().getWidth() / 2.0) + getLocation().x, (int) (getSize().getHeight() / 2.0) + getLocation().y);
-            controller.rotateCamera(new Point2D.Double(MouseInfo.getPointerInfo().getLocation().getX() - center.getX(), MouseInfo.getPointerInfo().getLocation().getY() - center.getY()));
-            if (robot != null) {
-                try {
-                    robot.mouseMove(center.x + getLocationOnScreen().x, center.y + getLocationOnScreen().y);
-                } catch (IllegalComponentStateException ignored) {
+            try {
+                @NotNull Point center = new Point((int) (getSize().getWidth() / 2.0) + getLocationOnScreen().x, (int) (getSize().getHeight() / 2.0) + getLocationOnScreen().y);
+                controller.rotateCamera(new Point2D.Double(MouseInfo.getPointerInfo().getLocation().getX() - center.getX(), MouseInfo.getPointerInfo().getLocation().getY() - center.getY()));
+                if (robot != null) {
+                    robot.mouseMove(center.x, center.y);
                 }
+            } catch (IllegalComponentStateException ignored) {
             }
         }
 

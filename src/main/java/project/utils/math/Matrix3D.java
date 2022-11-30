@@ -129,7 +129,8 @@ public class Matrix3D {
     }
 
     /**
-     * Returns new Vector3D() either if no solution or infinite solutions exist
+     * @param rhs the right side of the elimination
+     * @return new Vector3D() either if no solution or infinite solutions exist
      */
     @Contract(pure = true)
     public @NotNull Vector3D eliminate(@NotNull Vector3D rhs) {

@@ -55,7 +55,7 @@ public class Room {
         camera.rotate(new Vector3D(mouseMoved.y * scale, mouseMoved.x * scale, 0, 0));
     }
 
-    public void update() {
+    public void moveCamera() {
         synchronized (movingDirections) {
             for (@NotNull Direction direction : movingDirections) {
                 moveCamera(direction);

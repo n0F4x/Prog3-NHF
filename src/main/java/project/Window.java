@@ -10,7 +10,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class Window extends JFrame {
-    private final @NotNull Room room = new Room();
+    private final @NotNull Runnable updateSystem;
 
 
     public Window() {
@@ -21,6 +21,7 @@ public class Window extends JFrame {
         setIgnoreRepaint(true);
 
         getContentPane().setLayout(new CardLayout());
+        @NotNull Room room = new Room();
         add(room, "Room");
         add(new Settings(), "Settings");
 
@@ -30,6 +31,8 @@ public class Window extends JFrame {
                 App.resourceManager.save();
             }
         });
+
+        updateSystem = room::update;
     }
 
     public void switchView(@NotNull String name) {
@@ -37,8 +40,6 @@ public class Window extends JFrame {
     }
 
     public void update() {
-        if (room.isVisible()) {
-            room.update();
-        }
+        updateSystem.run();
     }
 }

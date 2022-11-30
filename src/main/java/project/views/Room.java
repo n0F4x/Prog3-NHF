@@ -102,7 +102,7 @@ public class Room extends JPanel {
 
     public void update() {
         if (focused && hasFocus()) {
-            controller.update();
+            controller.moveCamera();
 
             @NotNull Point center = new Point((int) (getSize().getWidth() / 2.0) + getLocation().x, (int) (getSize().getHeight() / 2.0) + getLocation().y);
             controller.rotateCamera(new Point2D.Double(MouseInfo.getPointerInfo().getLocation().getX() - center.getX(), MouseInfo.getPointerInfo().getLocation().getY() - center.getY()));

@@ -3,9 +3,9 @@ package project;
 import org.jetbrains.annotations.NotNull;
 
 public class App {
-    public final static @NotNull ResourceManager resourceManager = new ResourceManager();
-    public final static @NotNull Window window = new Window();
-    private final static @NotNull Engine engine = new Engine();
+    public static final @NotNull ResourceManager resourceManager = new ResourceManager();
+    public static final @NotNull Window window = new Window();
+    private static final @NotNull Engine engine = new Engine();
     public static final int UPS = 60;
 
 

@@ -21,6 +21,8 @@ public class ResourceManager {
                 .padArrayDelimitersBy(1)
                 .build();
 
+        camera.rotation.x %= 360;
+        camera.rotation.y %= 360;
         try {
             tomlWriter.write(camera, cameraFile);
         } catch (IOException ignored) {

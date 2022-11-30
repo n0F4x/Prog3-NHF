@@ -30,13 +30,13 @@ public class Room {
         double moveAmount = 15.0 / App.UPS;
         switch (direction) {
             case Forward ->
-                    camera.move(new Vector3D(Math.sin(camera.getRotation().y) * moveAmount, 0, -Math.cos(camera.getRotation().y) * moveAmount, 0));
+                    camera.move(new Vector3D(Math.sin(camera.rotation.y) * moveAmount, 0, -Math.cos(camera.rotation.y) * moveAmount, 0));
             case Left ->
-                    camera.move(new Vector3D(-Math.cos(camera.getRotation().y) * moveAmount, 0, -Math.sin(camera.getRotation().y) * moveAmount, 0));
+                    camera.move(new Vector3D(-Math.cos(camera.rotation.y) * moveAmount, 0, -Math.sin(camera.rotation.y) * moveAmount, 0));
             case Backward ->
-                    camera.move(new Vector3D(-Math.sin(camera.getRotation().y) * moveAmount, 0, Math.cos(camera.getRotation().y) * moveAmount, 0));
+                    camera.move(new Vector3D(-Math.sin(camera.rotation.y) * moveAmount, 0, Math.cos(camera.rotation.y) * moveAmount, 0));
             case Right ->
-                    camera.move(new Vector3D(Math.cos(camera.getRotation().y) * moveAmount, 0, Math.sin(camera.getRotation().y) * moveAmount, 0));
+                    camera.move(new Vector3D(Math.cos(camera.rotation.y) * moveAmount, 0, Math.sin(camera.rotation.y) * moveAmount, 0));
             case Up -> camera.move(new Vector3D(0, -moveAmount, 0, 0));
             case Down -> camera.move(new Vector3D(0, moveAmount, 0, 0));
         }

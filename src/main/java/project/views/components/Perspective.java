@@ -30,13 +30,13 @@ public class Perspective {
     }
 
     private @NotNull Matrix3D calcViewMatrix() {
-        return Matrix3D.buildRotationMatrix(camera.getRotation().multiply(-1))
-                .concat(Matrix3D.buildTranslationMatrix(camera.getPosition().multiply(-1)));
+        return Matrix3D.buildRotationMatrix(camera.rotation.multiply(-1))
+                .concat(Matrix3D.buildTranslationMatrix(camera.position.multiply(-1)));
     }
 
     private @NotNull Matrix3D calcViewInverseMatrix() {
-        return Matrix3D.buildTranslationMatrix(camera.getPosition().multiply(-1))
-                .concat(Matrix3D.buildRotationMatrix(camera.getRotation().multiply(-1)));
+        return Matrix3D.buildTranslationMatrix(camera.position.multiply(-1))
+                .concat(Matrix3D.buildRotationMatrix(camera.position.multiply(-1)));
     }
 
     private @NotNull Vector3D correctPoint(@NotNull Vector3D front, @NotNull Vector3D back, @NotNull Vector3D camera) {
@@ -80,7 +80,7 @@ public class Perspective {
     private void addLines(@NotNull Vector3D @NotNull [] points, List<@NotNull Vector3D> corners) {
         Matrix3D viewInverseMatrix = calcViewInverseMatrix();
         normal = new Vector3D(viewInverseMatrix.transpose().concat(new Vector3D(0, 0, -1, 0)));
-        nearCameraPosition = camera.getPosition().add(normal.multiply(camera.getNear()));
+        nearCameraPosition = camera.position.add(normal.multiply(camera.getNear()));
 
         if (points[0].z > 0) {
             if (addCorrectedLine(points, corners, 0, 3, 1)) {

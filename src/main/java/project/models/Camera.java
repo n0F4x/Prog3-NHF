@@ -4,20 +4,12 @@ import org.jetbrains.annotations.NotNull;
 import project.utils.math.Vector3D;
 
 public class Camera implements Cloneable {
-    private @NotNull Vector3D position = new Vector3D();
-    private @NotNull Vector3D rotation = new Vector3D(); // in radians
+    public @NotNull Vector3D position = new Vector3D();
+    public @NotNull Vector3D rotation = new Vector3D(); // in radians
     public static final int minFOV = 60;
     public static final int maxFOV = 179;
     private int FOV = 90;
 
-
-    public synchronized @NotNull Vector3D getPosition() {
-        return position;
-    }
-
-    public synchronized @NotNull Vector3D getRotation() {
-        return rotation;
-    }
 
     public synchronized int getFOV() {
         return FOV;

@@ -39,7 +39,7 @@ public class Perspective {
     @Contract(pure = true)
     private @NotNull Matrix3D calcViewInverseMatrix() {
         return Matrix3D.buildTranslationMatrix(camera.position.multiply(-1))
-                .concat(Matrix3D.buildRotationMatrix(camera.position.multiply(-1)));
+                .concat(Matrix3D.buildRotationMatrix(camera.rotation.multiply(-1)));
     }
 
     @Contract(pure = true)

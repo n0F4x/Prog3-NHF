@@ -92,6 +92,7 @@ public class Matrix3D {
         return result;
     }
 
+    @Contract ("_ -> new")
     public static @NotNull Matrix3D buildRotationMatrix(@NotNull Vector3D rotation) {
         return Matrix3D.buildRotationXMatrix(rotation.x)
                 .concat(Matrix3D.buildRotationYMatrix(rotation.y))
@@ -130,6 +131,7 @@ public class Matrix3D {
     /**
      * Returns new Vector3D() either if no solution or infinite solutions exist
      */
+    @Contract ("_ -> new")
     public @NotNull Vector3D eliminate(@NotNull Vector3D rhs) {
         double[][] result = {
                 { matrix[0][0], matrix[0][1], matrix[0][2], matrix[0][3], rhs.x },
@@ -172,6 +174,7 @@ public class Matrix3D {
         );
     }
 
+    @Contract (" -> new")
     public @NotNull Matrix3D transpose() {
         return new Matrix3D(new double[][] {
                 { matrix[0][0], matrix[1][0], matrix[2][0], matrix[3][0] },

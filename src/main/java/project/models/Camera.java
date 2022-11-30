@@ -1,5 +1,6 @@
 package project.models;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import project.utils.math.Vector3D;
 
@@ -36,6 +37,7 @@ public class Camera implements Cloneable {
     }
 
     @Override
+    @Contract (" -> new")
     public @NotNull Camera clone() {
         try {
             @NotNull Camera clone = (Camera) super.clone();

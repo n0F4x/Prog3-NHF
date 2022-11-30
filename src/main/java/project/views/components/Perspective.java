@@ -1,5 +1,6 @@
 package project.views.components;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import project.models.Camera;
 import project.models.Room;
@@ -29,16 +30,19 @@ public class Perspective {
         this.camera = camera;
     }
 
+    @Contract(" -> new")
     private @NotNull Matrix3D calcViewMatrix() {
         return Matrix3D.buildRotationMatrix(camera.rotation.multiply(-1))
                 .concat(Matrix3D.buildTranslationMatrix(camera.position.multiply(-1)));
     }
 
+    @Contract (" -> new")
     private @NotNull Matrix3D calcViewInverseMatrix() {
         return Matrix3D.buildTranslationMatrix(camera.position.multiply(-1))
                 .concat(Matrix3D.buildRotationMatrix(camera.position.multiply(-1)));
     }
 
+    @Contract ("_,_,_ -> new")
     private @NotNull Vector3D correctPoint(@NotNull Vector3D front, @NotNull Vector3D back, @NotNull Vector3D camera) {
         return new Matrix3D(new double[][]{
                 {1, 0, 0, front.x - back.x},

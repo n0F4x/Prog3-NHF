@@ -1,5 +1,6 @@
 package project;
 
+import org.jetbrains.annotations.NotNull;
 import project.views.Room;
 import project.views.Settings;
 
@@ -9,7 +10,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class Window extends JFrame {
-    private final Room room = new Room();
+    private final @NotNull Room room = new Room();
 
 
     public Window() {
@@ -31,7 +32,7 @@ public class Window extends JFrame {
         });
     }
 
-    public void switchView(String name) {
+    public void switchView(@NotNull String name) {
         ((CardLayout) getContentPane().getLayout()).show(getContentPane(), name);
     }
 

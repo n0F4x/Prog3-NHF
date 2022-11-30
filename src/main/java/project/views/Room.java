@@ -1,5 +1,6 @@
 package project.views;
 
+import org.jetbrains.annotations.NotNull;
 import project.Window;
 import project.utils.tools.Cursor;
 import project.views.components.Crosshair;
@@ -14,18 +15,18 @@ import java.awt.geom.Point2D;
 public class Room extends JPanel {
     public class RoomFocusListener implements FocusListener {
         @Override
-        public void focusGained(FocusEvent e) {
+        public void focusGained(@NotNull FocusEvent e) {
             setCursor(Cursor.getBlankCursor());
             oldMousePosition = MouseInfo.getPointerInfo().getLocation();
             if (robot != null) {
-                Point center = new Point((int) (getSize().getWidth() / 2.0) + getLocation().x, (int) (getSize().getHeight() / 2.0) + getLocation().y);
+                @NotNull Point center = new Point((int) (getSize().getWidth() / 2.0) + getLocation().x, (int) (getSize().getHeight() / 2.0) + getLocation().y);
                 robot.mouseMove(center.x, center.y);
             }
             focused = true;
         }
 
         @Override
-        public void focusLost(FocusEvent e) {
+        public void focusLost(@NotNull FocusEvent e) {
             setCursor(Cursor.getDefaultCursor());
             if (robot != null) {
                 robot.mouseMove(oldMousePosition.x, oldMousePosition.y);
@@ -36,14 +37,14 @@ public class Room extends JPanel {
 
     public class RoomComponentListener extends ComponentAdapter {
         @Override
-        public void componentShown(ComponentEvent componentEvent) {
+        public void componentShown(@NotNull ComponentEvent componentEvent) {
             requestFocus();
         }
     }
 
     public class KeyEventListener extends KeyAdapter {
         @Override
-        public void keyPressed(KeyEvent keyEvent) {
+        public void keyPressed(@NotNull KeyEvent keyEvent) {
             switch (keyEvent.getKeyCode()) {
                 case KeyEvent.VK_ESCAPE -> ((Window) getTopLevelAncestor()).switchView("Settings");
                 case KeyEvent.VK_W -> controller.beginMovement(Direction.Forward);
@@ -56,7 +57,7 @@ public class Room extends JPanel {
         }
 
         @Override
-        public void keyReleased(KeyEvent keyEvent) {
+        public void keyReleased(@NotNull KeyEvent keyEvent) {
             switch (keyEvent.getKeyCode()) {
                 case KeyEvent.VK_ESCAPE -> ((Window) getTopLevelAncestor()).switchView("Settings");
                 case KeyEvent.VK_W -> controller.stopMovement(Direction.Forward);
@@ -69,12 +70,12 @@ public class Room extends JPanel {
         }
     }
 
-    private final project.controllers.Room controller = new project.controllers.Room();
-    private final Perspective perspective = new Perspective(controller.getRoom(), controller.getCamera());
-    private final Crosshair crosshair = new Crosshair();
+    private final @NotNull project.controllers.Room controller = new project.controllers.Room();
+    private final @NotNull Perspective perspective = new Perspective(controller.getRoom(), controller.getCamera());
+    private final @NotNull Crosshair crosshair = new Crosshair();
     private Robot robot;
     private boolean focused = false;
-    private Point oldMousePosition = new Point();
+    private @NotNull Point oldMousePosition = new Point();
 
 
     public Room() {
@@ -92,7 +93,7 @@ public class Room extends JPanel {
     }
 
     @Override
-    public void paintComponent(Graphics graphics) {
+    public void paintComponent(@NotNull Graphics graphics) {
         super.paintComponent(graphics);
 
         perspective.paint(graphics);
@@ -103,7 +104,7 @@ public class Room extends JPanel {
         if (focused && hasFocus()) {
             controller.update();
 
-            Point center = new Point((int) (getSize().getWidth() / 2.0) + getLocation().x, (int) (getSize().getHeight() / 2.0) + getLocation().y);
+            @NotNull Point center = new Point((int) (getSize().getWidth() / 2.0) + getLocation().x, (int) (getSize().getHeight() / 2.0) + getLocation().y);
             controller.rotateCamera(new Point2D.Double(MouseInfo.getPointerInfo().getLocation().getX() - center.getX(), MouseInfo.getPointerInfo().getLocation().getY() - center.getY()));
             if (robot != null) {
                 try {

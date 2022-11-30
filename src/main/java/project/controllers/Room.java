@@ -13,16 +13,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Room {
-    private final project.models.Room room = App.resourceManager.room;
-    private final Camera camera = App.resourceManager.camera;
-    private final Set<Direction> movingDirections = Collections.synchronizedSet(new HashSet<>());
+    private final @NotNull project.models.Room room = App.resourceManager.room;
+    private final @NotNull Camera camera = App.resourceManager.camera;
+    private final @NotNull Set<@NotNull Direction> movingDirections = Collections.synchronizedSet(new HashSet<>());
 
 
-    public project.models.Room getRoom() {
+    public project.models.@NotNull Room getRoom() {
         return room;
     }
 
-    public Camera getCamera() {
+    public @NotNull Camera getCamera() {
         return camera;
     }
 
@@ -57,7 +57,7 @@ public class Room {
 
     public void update() {
         synchronized (movingDirections) {
-            for (Direction direction : movingDirections) {
+            for (@NotNull Direction direction : movingDirections) {
                 moveCamera(direction);
             }
         }

@@ -14,17 +14,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Perspective {
-    private final Room room;
-    private final Camera camera;
-    private Dimension screenSize = new Dimension();
-    private Camera snapshot = new Camera();
-    private final List<Line2D> lines = Collections.synchronizedList(new ArrayList<>());
-    private Matrix3D projectionMatrix;
-    private Vector3D nearCameraPosition;
-    private Vector3D normal;
+    private final @NotNull Room room;
+    private final @NotNull Camera camera;
+    private @NotNull Dimension screenSize = new Dimension();
+    private @NotNull Camera snapshot = new Camera();
+    private final @NotNull List<@NotNull Line2D> lines = Collections.synchronizedList(new ArrayList<>());
+    private @NotNull Matrix3D projectionMatrix = Matrix3D.buildIdentityMatrix();
+    private @NotNull Vector3D nearCameraPosition = new Vector3D();
+    private @NotNull Vector3D normal = new Vector3D();
 
 
-    public Perspective(Room room, Camera camera) {
+    public Perspective(@NotNull Room room, @NotNull Camera camera) {
         this.room = room;
         this.camera = camera;
     }
@@ -53,7 +53,7 @@ public class Perspective {
         ));
     }
 
-    private boolean addCorrectedLine(Vector3D[] points, List<Vector3D> corners, int index, int prevIndex, int nextIndex) {
+    private boolean addCorrectedLine(@NotNull Vector3D @NotNull [] points, List<@NotNull Vector3D> corners, int index, int prevIndex, int nextIndex) {
         if (points[prevIndex].z <= 0) {
             Vector3D corrected = correctPoint(corners.get(index), corners.get(prevIndex), nearCameraPosition);
             Vector3D projected = projectionMatrix.concat(corrected);
@@ -77,7 +77,7 @@ public class Perspective {
         return false;
     }
 
-    private void addLines(Vector3D[] points, List<Vector3D> corners) {
+    private void addLines(@NotNull Vector3D @NotNull [] points, List<@NotNull Vector3D> corners) {
         Matrix3D viewInverseMatrix = calcViewInverseMatrix();
         normal = new Vector3D(viewInverseMatrix.transpose().concat(new Vector3D(0, 0, -1, 0)));
         nearCameraPosition = camera.getPosition().add(normal.multiply(camera.getNear()));
@@ -151,7 +151,7 @@ public class Perspective {
         }
     }
 
-    public void paint(Graphics graphics) {
+    public void paint(@NotNull Graphics graphics) {
         Graphics2D graphics2D = (Graphics2D) graphics;
         graphics2D.setColor(Color.GREEN);
         graphics2D.setStroke(new BasicStroke(2));

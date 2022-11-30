@@ -20,15 +20,11 @@ public class Vector3D {
         this.w = w;
     }
 
-    public Vector3D(Vector3D other) {
+    public Vector3D(@NotNull Vector3D other) {
         x = other.x;
         y = other.y;
         z = other.z;
         w = other.w;
-    }
-
-    public double magnitude() {
-        return Math.sqrt(x*x + y*y + z*z);
     }
 
     @Contract("_ -> new")
@@ -40,20 +36,12 @@ public class Vector3D {
         return result;
     }
 
-    public double dotProduct(@NotNull Vector3D rhs) {
-        return x * rhs.x + y * rhs.y + z * rhs.z;
-    }
-
-    public double angle(@NotNull Vector3D rhs) {
-        return Math.acos((dotProduct(rhs)) / (magnitude() * rhs.magnitude()));
-    }
-
     @Contract("_ -> new")
     public @NotNull Vector3D add(@NotNull Vector3D rhs) {
-        Vector3D result = new Vector3D();
-        result.x = x + rhs.x;
-        result.y = y + rhs.y;
-        result.z = z + rhs.z;
+        Vector3D result = new Vector3D(this);
+        result.x += rhs.x;
+        result.y += rhs.y;
+        result.z += rhs.z;
         return result;
     }
 }

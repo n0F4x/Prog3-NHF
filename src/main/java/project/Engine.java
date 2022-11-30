@@ -1,16 +1,18 @@
 package project;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 public class Engine {
-    private final ArrayList<Runnable> systems = new ArrayList<>();
+    private final @NotNull ArrayList<@NotNull Runnable> systems = new ArrayList<>();
 
 
-    public void addSystem(Runnable system) {
+    public void addSystem(@NotNull Runnable system) {
         systems.add(system);
     }
 
     public void run() {
-        for (Runnable system : systems) {
+        for (@NotNull Runnable system : systems) {
             new Thread(system).start();
         }
     }

@@ -1,15 +1,17 @@
 package project.views.components;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.awt.*;
 import java.awt.geom.Line2D;
 
 public class Crosshair {
-    private final Line2D horizontalLine;
-    private final Line2D verticalLine;
+    private final @NotNull Line2D horizontalLine;
+    private final @NotNull Line2D verticalLine;
 
 
     public Crosshair() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        @NotNull Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         double size = Math.min(screenSize.width, screenSize.height) / 100.0;
 
         horizontalLine = new Line2D.Double(
@@ -27,8 +29,8 @@ public class Crosshair {
         );
     }
 
-    public void paint(Graphics graphics) {
-        Graphics2D graphics2D = (Graphics2D) graphics;
+    public void paint(@NotNull Graphics graphics) {
+        @NotNull Graphics2D graphics2D = (Graphics2D) graphics;
         graphics2D.setColor(Color.GRAY);
         graphics2D.draw(horizontalLine);
         graphics2D.draw(verticalLine);

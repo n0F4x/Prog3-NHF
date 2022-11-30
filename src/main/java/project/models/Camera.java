@@ -37,7 +37,7 @@ public class Camera implements Cloneable {
     }
 
     @Override
-    @Contract (" -> new")
+    @Contract(pure = true)
     public @NotNull Camera clone() {
         try {
             @NotNull Camera clone = (Camera) super.clone();

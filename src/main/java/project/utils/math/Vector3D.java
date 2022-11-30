@@ -27,7 +27,7 @@ public class Vector3D {
         w = other.w;
     }
 
-    @Contract("_ -> new")
+    @Contract(pure = true)
     public @NotNull Vector3D multiply(double rhs) {
         Vector3D result = new Vector3D(this);
         result.x = x * rhs;
@@ -36,7 +36,7 @@ public class Vector3D {
         return result;
     }
 
-    @Contract("_ -> new")
+    @Contract(pure = true)
     public @NotNull Vector3D add(@NotNull Vector3D rhs) {
         Vector3D result = new Vector3D(this);
         result.x += rhs.x;

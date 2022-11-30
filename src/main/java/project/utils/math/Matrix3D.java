@@ -54,9 +54,9 @@ public class Matrix3D {
         double[][] matrix = new double[4][4];
 
         matrix[0][0] = matrix[3][3] = 1;
-        matrix[1][1] = matrix[2][2] = Math.cos(rX * Math.PI / 180);
+        matrix[1][1] = matrix[2][2] = Math.cos(rX);
 
-        double sine = Math.sin(rX * Math.PI / 180);
+        double sine = Math.sin(rX);
         matrix[2][1] = sine;
         matrix[1][2] = -sine;
 
@@ -68,9 +68,9 @@ public class Matrix3D {
         double[][] matrix = new double[4][4];
 
         matrix[1][1] = matrix[3][3] = 1;
-        matrix[0][0] = matrix[2][2] = Math.cos(rY * Math.PI / 180);
+        matrix[0][0] = matrix[2][2] = Math.cos(rY);
 
-        double sine = Math.sin(rY * Math.PI / 180);
+        double sine = Math.sin(rY);
         matrix[0][2] = -sine;
         matrix[2][0] = sine;
 
@@ -82,7 +82,7 @@ public class Matrix3D {
         double[][] matrix = new double[4][4];
 
         matrix[2][2] = matrix[3][3] = 1;
-        matrix[0][0] = matrix[1][1] = Math.cos(rZ * Math.PI / 180);
+        matrix[0][0] = matrix[1][1] = Math.cos(rZ);
 
         double sine = Math.sin(rZ * Math.PI / 180);
         matrix[1][0] = sine;

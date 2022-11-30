@@ -30,13 +30,13 @@ public class Room {
         double moveAmount = 15.0 / App.UPS;
         switch (direction) {
             case Forward ->
-                    camera.move(new Vector3D(Math.sin(camera.getRotation().y * Math.PI / 180.0) * moveAmount, 0, -Math.cos(camera.getRotation().y * Math.PI / 180.0) * moveAmount, 0));
+                    camera.move(new Vector3D(Math.sin(camera.getRotation().y) * moveAmount, 0, -Math.cos(camera.getRotation().y) * moveAmount, 0));
             case Left ->
-                    camera.move(new Vector3D(-Math.cos(camera.getRotation().y * Math.PI / 180.0) * moveAmount, 0, -Math.sin(camera.getRotation().y * Math.PI / 180.0) * moveAmount, 0));
+                    camera.move(new Vector3D(-Math.cos(camera.getRotation().y) * moveAmount, 0, -Math.sin(camera.getRotation().y) * moveAmount, 0));
             case Backward ->
-                    camera.move(new Vector3D(-Math.sin(camera.getRotation().y * Math.PI / 180.0) * moveAmount, 0, Math.cos(camera.getRotation().y * Math.PI / 180.0) * moveAmount, 0));
+                    camera.move(new Vector3D(-Math.sin(camera.getRotation().y) * moveAmount, 0, Math.cos(camera.getRotation().y) * moveAmount, 0));
             case Right ->
-                    camera.move(new Vector3D(Math.cos(camera.getRotation().y * Math.PI / 180.0) * moveAmount, 0, Math.sin(camera.getRotation().y * Math.PI / 180.0) * moveAmount, 0));
+                    camera.move(new Vector3D(Math.cos(camera.getRotation().y) * moveAmount, 0, Math.sin(camera.getRotation().y) * moveAmount, 0));
             case Up -> camera.move(new Vector3D(0, -moveAmount, 0, 0));
             case Down -> camera.move(new Vector3D(0, moveAmount, 0, 0));
         }
@@ -51,7 +51,7 @@ public class Room {
     }
 
     public void rotateCamera(@NotNull Point2D.Double mouseMoved) {
-        double scale = 0.1;
+        double scale = 0.002;
         camera.rotate(new Vector3D(mouseMoved.y * scale, mouseMoved.x * scale, 0, 0));
     }
 

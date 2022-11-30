@@ -11,7 +11,6 @@ import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 public class Perspective {
@@ -19,7 +18,7 @@ public class Perspective {
     private final Camera camera;
     private Dimension screenSize = new Dimension();
     private Camera snapshot = new Camera();
-    private final Collection<Line2D> lines = Collections.synchronizedList(new ArrayList<>());
+    private final List<Line2D> lines = Collections.synchronizedList(new ArrayList<>());
     private Matrix3D projectionMatrix;
     private Vector3D nearCameraPosition;
     private Vector3D normal;

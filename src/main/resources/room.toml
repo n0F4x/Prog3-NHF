@@ -1,0 +1,167 @@
+[[walls]]
+[[walls.corners]]
+x = 0.0
+y = 0.0
+z = 0.0
+
+[[walls.corners]]
+x = 10.0
+y = 0.0
+z = 0.0
+
+[[walls.corners]]
+x = 10.0
+y = 10.0
+z = 0.0
+
+[[walls.corners]]
+x = 0.0
+y = 10.0
+z = 0.0
+
+[[walls]]
+[[walls.corners]]
+x = 10.0
+y = 0.0
+z = 0.0
+
+[[walls.corners]]
+x = 10.0
+y = 0.0
+z = -10.0
+
+[[walls.corners]]
+x = 10.0
+y = 10.0
+z = -10.0
+
+[[walls.corners]]
+x = 10.0
+y = 10.0
+z = 0.0
+
+[[walls]]
+[[walls.corners]]
+x = 10.0
+y = -10.0
+z = -10.0
+
+[[walls.corners]]
+x = 10.0
+y = 10.0
+z = -10.0
+
+[[walls.corners]]
+x = -10.0
+y = 10.0
+z = -10.0
+
+[[walls.corners]]
+x = -10.0
+y = -10.0
+z = -10.0
+
+[[walls]]
+[[walls.corners]]
+x = 10.0
+y = 0.0
+z = 0.0
+
+[[walls.corners]]
+x = 10.0
+y = -10.0
+z = -10.0
+
+[[walls.corners]]
+x = -10.0
+y = -10.0
+z = -10.0
+
+[[walls.corners]]
+x = 0.0
+y = 0.0
+z = 0.0
+
+[[walls]]
+[[walls.corners]]
+x = 0.0
+y = 0.0
+z = 0.0
+
+[[walls.corners]]
+x = 0.0
+y = 10.0
+z = 0.0
+
+[[walls.corners]]
+x = 0.0
+y = 10.0
+z = 30.0
+
+[[walls.corners]]
+x = 0.0
+y = 0.0
+z = 30.0
+
+[[walls]]
+[[walls.corners]]
+x = -10.0
+y = -10.0
+z = -10.0
+
+[[walls.corners]]
+x = -10.0
+y = 10.0
+z = -10.0
+
+[[walls.corners]]
+x = -10.0
+y = 10.0
+z = 30.0
+
+[[walls.corners]]
+x = -10.0
+y = -10.0
+z = 30.0
+
+[[walls]]
+[[walls.corners]]
+x = -10.0
+y = -10.0
+z = -10.0
+
+[[walls.corners]]
+x = 0.0
+y = 0.0
+z = 0.0
+
+[[walls.corners]]
+x = 0.0
+y = 0.0
+z = 30.0
+
+[[walls.corners]]
+x = -10.0
+y = -10.0
+z = 30.0
+
+[[walls]]
+[[walls.corners]]
+x = -10.0
+y = 10.0
+z = 30.0
+
+[[walls.corners]]
+x = 0.0
+y = 10.0
+z = 30.0
+
+[[walls.corners]]
+x = 0.0
+y = 0.0
+z = 30.0
+
+[[walls.corners]]
+x = -10.0
+y = -10.0
+z = 30.0

@@ -17,6 +17,7 @@ import java.util.Collections;
 public class Perspective {
     private final Room room;
     private final Camera camera;
+    private Dimension screenSize = new Dimension();
     private Camera snapshot = new Camera();
     private final Collection<Line2D> lines = Collections.synchronizedList(new ArrayList<>());
     private Matrix3D projectionMatrix;
@@ -53,7 +54,7 @@ public class Perspective {
         ));
     }
 
-    private boolean addCorrectedLine(Vector3D[] points, List<Vector3D> corners, Dimension screenSize, int index, int prevIndex, int nextIndex) {
+    private boolean addCorrectedLine(Vector3D[] points, List<Vector3D> corners, int index, int prevIndex, int nextIndex) {
         if (points[prevIndex].z <= 0) {
             Vector3D corrected = correctPoint(corners.get(index), corners.get(prevIndex), nearCameraPosition);
             Vector3D projected = projectionMatrix.concat(corrected);
@@ -77,13 +78,13 @@ public class Perspective {
         return false;
     }
 
-    private void addLines(Vector3D[] points, List<Vector3D> corners, Dimension screenSize) {
+    private void addLines(Vector3D[] points, List<Vector3D> corners) {
         Matrix3D viewInverseMatrix = calcViewInverseMatrix();
         normal = new Vector3D(viewInverseMatrix.transpose().concat(new Vector3D(0, 0, -1, 0)));
         nearCameraPosition = camera.getPosition().add(normal.multiply(camera.getNear()));
 
         if (points[0].z > 0) {
-            if (addCorrectedLine(points, corners, screenSize, 0, 3, 1)) {
+            if (addCorrectedLine(points, corners, 0, 3, 1)) {
                 lines.add(new Line2D.Double(
                         new Point2D.Double(points[0].x, points[0].y),
                         new Point2D.Double(points[1].x, points[1].y)
@@ -91,7 +92,7 @@ public class Perspective {
             }
         }
         if (points[1].z > 0) {
-            if (addCorrectedLine(points, corners, screenSize, 1, 0, 2)) {
+            if (addCorrectedLine(points, corners, 1, 0, 2)) {
                 lines.add(new Line2D.Double(
                         new Point2D.Double(points[1].x, points[1].y),
                         new Point2D.Double(points[2].x, points[2].y)
@@ -99,7 +100,7 @@ public class Perspective {
             }
         }
         if (points[2].z > 0) {
-            if (addCorrectedLine(points, corners, screenSize, 2, 1, 3)) {
+            if (addCorrectedLine(points, corners, 2, 1, 3)) {
                 lines.add(new Line2D.Double(
                         new Point2D.Double(points[2].x, points[2].y),
                         new Point2D.Double(points[3].x, points[3].y)
@@ -107,7 +108,7 @@ public class Perspective {
             }
         }
         if (points[3].z > 0) {
-            if (addCorrectedLine(points, corners, screenSize, 3, 2, 0)) {
+            if (addCorrectedLine(points, corners, 3, 2, 0)) {
                 lines.add(new Line2D.Double(
                         new Point2D.Double(points[3].x, points[3].y),
                         new Point2D.Double(points[0].x, points[0].y)
@@ -117,8 +118,9 @@ public class Perspective {
     }
 
     public void update(@NotNull Dimension screenSize) {
-        if (!snapshot.equals(camera)) {
+        if (!snapshot.equals(camera) || !this.screenSize.equals(screenSize)) {
             snapshot = camera.clone();
+            this.screenSize = (Dimension) screenSize.clone();
             synchronized (lines) {
                 lines.clear();
 
@@ -137,15 +139,13 @@ public class Perspective {
                         points[i].x = (points[i].x / points[i].w + 1.0) / 2.0 * screenSize.width;
                         points[i].y = (points[i].y / points[i].w + 1.0) / 2.0 * screenSize.height;
 
-                        if (!valid && points[i].z > camera.getNear() && points[i].z < camera.getFar()
-//                                && 0 <= points[i].x && points[i].x <= screenSize.width && 0 <= points[i].y && points[i].y <= screenSize.height
-                        ) {
+                        if (!valid && points[i].z > camera.getNear() && points[i].z < camera.getFar()) {
                             valid = true;
                         }
                     }
 
                     if (valid) {
-                        addLines(points, wall.corners, screenSize);
+                        addLines(points, wall.corners);
                     }
                 }
             }
@@ -156,6 +156,8 @@ public class Perspective {
         Graphics2D graphics2D = (Graphics2D) graphics;
         graphics2D.setColor(Color.GREEN);
         graphics2D.setStroke(new BasicStroke(2));
+        ((Graphics2D) graphics).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
         synchronized (lines) {
             for (Line2D line : lines) {
                 graphics2D.draw(line);

@@ -26,7 +26,7 @@ public class Window extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                App.database.save();
+                App.resourceManager.save();
             }
         });
     }

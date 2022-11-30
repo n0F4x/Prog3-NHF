@@ -1,7 +1,7 @@
 package project;
 
 public class App {
-    public final static DataBase database = new DataBase();
+    public final static ResourceManager resourceManager = new ResourceManager();
     public final static Window window = new Window();
     private final static Engine engine = new Engine();
     public static final int UPS = 60;

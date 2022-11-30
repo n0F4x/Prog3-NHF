@@ -7,7 +7,6 @@ import java.util.List;
 
 public class Room {
     public static class Wall {
-        public final String tomlMessage = "start of new wall";
         public List<Vector3D> corners = new ArrayList<>();
     }
 

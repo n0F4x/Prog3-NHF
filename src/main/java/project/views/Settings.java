@@ -18,7 +18,7 @@ public class Settings extends JPanel {
         setLayout(null);
 
         add(new BackButton(this::getParent));
-        add(new FOVScroller(App.database.resources.camera.getFOV(), Camera.minFOV, Camera.maxFOV, App.database.resources.camera::setFOV), FlowLayout.CENTER);
+        add(new FOVScroller(App.resourceManager.camera.getFOV(), Camera.minFOV, Camera.maxFOV, App.resourceManager.camera::setFOV), FlowLayout.CENTER);
         add(new QuitButton(), FlowLayout.RIGHT);
     }
 }

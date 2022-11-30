@@ -13,8 +13,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Room {
-    private final project.models.Room room = App.database.resources.room;
-    private final Camera camera = App.database.resources.camera;
+    private final project.models.Room room = App.resourceManager.room;
+    private final Camera camera = App.resourceManager.camera;
     private final Set<Direction> movingDirections = Collections.synchronizedSet(new HashSet<>());
 
 

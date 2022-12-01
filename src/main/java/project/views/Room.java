@@ -12,8 +12,18 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Point2D;
 
+/**
+ * The view of the room
+ */
 public class Room extends JPanel {
+    /**
+     * The focus listener of the room
+     */
     public class RoomFocusListener implements FocusListener {
+        /**
+         * Hides the cursor.
+         * Saves the position of the cursor, then moves the cursor to the middle of the screen.
+         */
         @Override
         public void focusGained(@NotNull FocusEvent e) {
             setCursor(Cursor.getBlankCursor());
@@ -25,6 +35,9 @@ public class Room extends JPanel {
             focused = true;
         }
 
+        /**
+         * Moves the cursor to its saved position
+         */
         @Override
         public void focusLost(@NotNull FocusEvent e) {
             setCursor(Cursor.getDefaultCursor());
@@ -35,14 +48,27 @@ public class Room extends JPanel {
         }
     }
 
+    /**
+     * The component listener of the room
+     */
     public class RoomComponentListener extends ComponentAdapter {
+        /**
+         * Requests focus
+         */
         @Override
         public void componentShown(@NotNull ComponentEvent componentEvent) {
             requestFocus();
         }
     }
 
+    /**
+     * The key listener of the room
+     */
     public class KeyEventListener extends KeyAdapter {
+        /**
+         * Toggles the main view of the application to show the room's settings when Escape is pressed
+         * Moves the camera with WASD QE
+         */
         @Override
         public void keyPressed(@NotNull KeyEvent keyEvent) {
             switch (keyEvent.getKeyCode()) {
@@ -56,6 +82,9 @@ public class Room extends JPanel {
             }
         }
 
+        /**
+         * Moves the camera with WASD QE
+         */
         @Override
         public void keyReleased(@NotNull KeyEvent keyEvent) {
             switch (keyEvent.getKeyCode()) {
@@ -78,6 +107,9 @@ public class Room extends JPanel {
     private @NotNull Point oldMousePosition = new Point();
 
 
+    /**
+     * Constructs a new {@code Room} object
+     */
     public Room() {
         try {
             robot = new Robot();
@@ -92,6 +124,10 @@ public class Room extends JPanel {
         addFocusListener(new RoomFocusListener());
     }
 
+    /**
+     * Paints the room to the screen
+     * @param graphics the <code>Graphics</code> object to protect
+     */
     @Override
     public void paintComponent(@NotNull Graphics graphics) {
         super.paintComponent(graphics);
@@ -100,6 +136,9 @@ public class Room extends JPanel {
         crosshair.paint(graphics);
     }
 
+    /**
+     * Updates the contents of the room
+     */
     public void update() {
         if (focused && hasFocus()) {
             controller.moveCamera();

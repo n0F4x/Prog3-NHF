@@ -5,11 +5,17 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.*;
 import java.awt.geom.Line2D;
 
+/**
+ * Component class for cross-hairs
+ */
 public class Crosshair {
     private final @NotNull Line2D horizontalLine;
     private final @NotNull Line2D verticalLine;
 
 
+    /**
+     * Constructs a new {@code Crosshair}
+     */
     public Crosshair() {
         @NotNull Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         double size = Math.min(screenSize.width, screenSize.height) / 100.0;
@@ -29,6 +35,10 @@ public class Crosshair {
         );
     }
 
+    /**
+     * Paints the new crosshair to the screen
+     * @param graphics the <code>Graphics</code> object to protect
+     */
     public void paint(@NotNull Graphics graphics) {
         @NotNull Graphics2D graphics2D = (Graphics2D) graphics;
         graphics2D.setColor(Color.GRAY);

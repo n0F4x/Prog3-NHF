@@ -9,11 +9,11 @@ import java.util.function.Supplier;
 public class BackButton extends JButton {
     public BackButton(@NotNull Supplier<@NotNull Container> rootSupplier) {
         setIcon(new ImageIcon("src/main/resources/backButton.png"));
-        setFont(new Font("Calibri", Font.ITALIC, 50));
         setBackground(Color.GREEN);
-        setForeground(Color.WHITE);
-        setUI(new StyledButtonUI());
+//        setUI(new StyledButtonUI());
         setBounds(0,0, 200, 200);
+        setOpaque(false);
+        setBorderPainted(false);
 
         // TODO: Finish UI
 

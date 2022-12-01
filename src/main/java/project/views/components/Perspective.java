@@ -14,6 +14,9 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * A component class for managing the perspective of the room
+ */
 public class Perspective {
     private final @NotNull Room room;
     private final @NotNull Camera camera;
@@ -25,17 +28,28 @@ public class Perspective {
     private @NotNull Vector3D normal = new Vector3D();
 
 
+    /**
+     * Construct a new {@code Perspective}
+     * @param room the room of the perspective
+     * @param camera the camera of the perspective
+     */
     public Perspective(@NotNull Room room, @NotNull Camera camera) {
         this.room = room;
         this.camera = camera;
     }
 
+    /**
+     * @return the view matrix
+     */
     @Contract(pure = true)
     private @NotNull Matrix3D calcViewMatrix() {
         return Matrix3D.buildRotationMatrix(camera.rotation.multiply(-1))
                 .concat(Matrix3D.buildTranslationMatrix(camera.position.multiply(-1)));
     }
 
+    /**
+     * @return the inverse of the view matrix
+     */
     @Contract(pure = true)
     private @NotNull Matrix3D calcViewInverseMatrix() {
         return Matrix3D.buildTranslationMatrix(camera.position.multiply(-1))
@@ -120,6 +134,10 @@ public class Perspective {
         }
     }
 
+    /**
+     * Updates the perspective of the room
+     * @param screenSize the size of the screen
+     */
     public void update(@NotNull Dimension screenSize) {
         if (!snapshot.equals(camera) || !this.screenSize.equals(screenSize)) {
             snapshot = camera.clone();
@@ -155,6 +173,10 @@ public class Perspective {
         }
     }
 
+    /**
+     * Paints the perspective of the room
+     * @param graphics the <code>Graphics</code> object to protect
+     */
     public void paint(@NotNull Graphics graphics) {
         Graphics2D graphics2D = (Graphics2D) graphics;
 

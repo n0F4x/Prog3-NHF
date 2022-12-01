@@ -25,7 +25,9 @@ public class Camera implements Cloneable {
     }
 
     public synchronized void setFOV(int FOV) {
-        this.FOV = FOV;
+        if (FOV < minFOV) {
+            this.FOV = minFOV;
+        } else this.FOV = Math.min(FOV, maxFOV);
     }
 
     public synchronized void move(@NotNull Vector3D amount) {
@@ -48,5 +50,20 @@ public class Camera implements Cloneable {
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
         }
+    }
+
+    @Override
+    public boolean equals(@NotNull Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Camera other)) {
+            return false;
+        }
+
+        return position.equals(other.position)
+                && rotation.equals(other.rotation)
+                && Double.compare(FOV, other.FOV) == 0;
     }
 }

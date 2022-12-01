@@ -157,6 +157,7 @@ public class Perspective {
 
     public void paint(@NotNull Graphics graphics) {
         Graphics2D graphics2D = (Graphics2D) graphics;
+
         graphics2D.setColor(Color.GREEN);
         graphics2D.setStroke(new BasicStroke(2));
         ((Graphics2D) graphics).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

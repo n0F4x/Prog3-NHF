@@ -44,4 +44,20 @@ public class Vector3D {
         result.z += rhs.z;
         return result;
     }
+
+    @Override
+    public boolean equals(@NotNull Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Vector3D other)) {
+            return false;
+        }
+
+        return Double.compare(x, other.x) == 0
+                && Double.compare(y, other.y) == 0
+                && Double.compare(z, other.z) == 0
+                && Double.compare(w, other.w) == 0;
+    }
 }

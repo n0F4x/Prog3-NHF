@@ -3,6 +3,8 @@ package project.utils.math;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
+
 public class Matrix3D {
     private final double @NotNull [] @NotNull [] matrix;
 
@@ -183,5 +185,18 @@ public class Matrix3D {
                 { matrix[0][2], matrix[1][2], matrix[2][2], matrix[3][2] },
                 { matrix[0][3], matrix[1][3], matrix[2][3], matrix[3][3] }
         });
+    }
+
+    @Override
+    public boolean equals(@NotNull Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Matrix3D other)) {
+            return false;
+        }
+
+        return Arrays.deepEquals(matrix, other.matrix);
     }
 }

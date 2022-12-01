@@ -9,10 +9,16 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * The window of the application
+ */
 public class Window extends JFrame {
     private final @NotNull Runnable updateSystem;
 
 
+    /**
+     * Constructs a new window
+     */
     public Window() {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -35,10 +41,17 @@ public class Window extends JFrame {
         updateSystem = room::update;
     }
 
+    /**
+     * Switches the active "root" panel
+     * @param name name of the panel
+     */
     public void switchView(@NotNull String name) {
         ((CardLayout) getContentPane().getLayout()).show(getContentPane(), name);
     }
 
+    /**
+     * Updates the contents
+     */
     public void update() {
         updateSystem.run();
     }

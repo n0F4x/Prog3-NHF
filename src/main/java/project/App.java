@@ -2,6 +2,9 @@ package project;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * The root of the application
+ */
 public class App {
     public static final @NotNull ResourceManager resourceManager = new ResourceManager();
     public static final @NotNull Window window = new Window();
@@ -9,6 +12,9 @@ public class App {
     public static final int UPS = 60;
 
 
+    /**
+     * Updates and repaints the window {@value App#UPS} times per second
+     */
     private static void refresh() {
         long lastLoopTime = System.currentTimeMillis();
         while (window.isVisible()) {
@@ -28,6 +34,9 @@ public class App {
         }
     }
 
+    /**
+     * Runs the application
+     */
     public static void run() {
         engine.addSystem(App::refresh);
 

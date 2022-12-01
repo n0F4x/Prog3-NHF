@@ -8,6 +8,10 @@ import project.models.Room;
 
 import java.io.*;
 
+/**
+ * Manages the resources of the application
+ * Acts as a database
+ */
 public class ResourceManager {
     private final @NotNull Toml tomlReader = new Toml();
     private final @NotNull File cameraFile = new File("src/main/resources/camera.toml");
@@ -16,6 +20,9 @@ public class ResourceManager {
     public final @NotNull Room room = tomlReader.read(roomFile).to(Room.class);
 
 
+    /**
+     * Saves the application's contents to the file system
+     */
     public void save() {
         @NotNull TomlWriter tomlWriter = new TomlWriter.Builder()
                 .padArrayDelimitersBy(1)

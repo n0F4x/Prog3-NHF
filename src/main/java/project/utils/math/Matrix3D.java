@@ -5,14 +5,24 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
+/**
+ * Representation of a 4x4 matrix
+ */
 public class Matrix3D {
     private final double @NotNull [] @NotNull [] matrix;
 
 
+    /**
+     * Constructs a new {@code Matrix3D} object
+     * @param matrix the 4x4 array representation of the matrix
+     */
     public Matrix3D(double @NotNull [] @NotNull [] matrix) {
         this.matrix = matrix.clone();
     }
 
+    /**
+     * @return a 4x4 identity matrix
+     */
     @Contract(pure = true)
     public static @NotNull Matrix3D buildIdentityMatrix() {
         return new Matrix3D(new double[][]{
@@ -23,6 +33,13 @@ public class Matrix3D {
         });
     }
 
+    /**
+     * @param FOV field of view
+     * @param aspectRatio aspect ratio of the screen
+     * @param near minimum visible distance from the camera
+     * @param far maximum visible distance from the camera
+     * @return the perspective matrix
+     */
     @Contract(pure = true)
     public static @NotNull Matrix3D buildPerspectiveMatrix(double FOV, double aspectRatio, double near, double far) {
         double tanHalfFOV = Math.tan(Math.toRadians(FOV) / 2.0);
@@ -40,6 +57,10 @@ public class Matrix3D {
         return result;
     }
 
+    /**
+     * @param vector amount of the translation
+     * @return the translation matrix of given vector
+     */
     @Contract(pure = true)
     public static @NotNull Matrix3D buildTranslationMatrix(@NotNull Vector3D vector) {
         Matrix3D result = Matrix3D.buildIdentityMatrix();
@@ -52,6 +73,10 @@ public class Matrix3D {
         return result;
     }
 
+    /**
+     * @param rX rotation around the x-axis
+     * @return the rotation matrix from rX
+     */
     @Contract(pure = true)
     public static @NotNull Matrix3D buildRotationXMatrix(double rX) {
         Matrix3D result = Matrix3D.buildIdentityMatrix();
@@ -66,6 +91,10 @@ public class Matrix3D {
         return result;
     }
 
+    /**
+     * @param rY rotation around the y-axis
+     * @return the rotation matrix from rY
+     */
     @Contract(pure = true)
     public static @NotNull Matrix3D buildRotationYMatrix(double rY) {
         Matrix3D result = Matrix3D.buildIdentityMatrix();
@@ -80,6 +109,10 @@ public class Matrix3D {
         return result;
     }
 
+    /**
+     * @param rZ rotation around the z-axis
+     * @return the rotation matrix from rZ
+     */
     @Contract(pure = true)
     public static @NotNull Matrix3D buildRotationZMatrix(double rZ) {
         Matrix3D result = Matrix3D.buildIdentityMatrix();
@@ -94,6 +127,10 @@ public class Matrix3D {
         return result;
     }
 
+    /**
+     * @param rotation a combination of rotations around the x-, y-, and z-axes
+     * @return the rotation matrix from {@code rotation}
+     */
     @Contract(pure = true)
     public static @NotNull Matrix3D buildRotationMatrix(@NotNull Vector3D rotation) {
         return Matrix3D.buildRotationXMatrix(rotation.x)
@@ -101,6 +138,11 @@ public class Matrix3D {
                 .concat(Matrix3D.buildRotationZMatrix(rotation.z));
     }
 
+    /**
+     * Concatenates {@code this} with another matrix
+     * @param rhs right hand-side of the operation
+     * @return concatenation of the two matrices
+     */
     @Contract(pure = true)
     public @NotNull Matrix3D concat(@NotNull Matrix3D rhs) {
         Matrix3D result = Matrix3D.buildIdentityMatrix();
@@ -118,6 +160,11 @@ public class Matrix3D {
         return result;
     }
 
+    /**
+     * Concatenates {@code this} with a vector
+     * @param rhs right hand-side of the operation
+     * @return the result of the operation
+     */
     @Contract(pure = true)
     public @NotNull Vector3D concat(@NotNull Vector3D rhs) {
         Vector3D result = new Vector3D();
@@ -177,6 +224,9 @@ public class Matrix3D {
         );
     }
 
+    /**
+     * @return the transposition of {@code this}
+     */
     @Contract(pure = true)
     public @NotNull Matrix3D transpose() {
         return new Matrix3D(new double[][] {
@@ -187,6 +237,10 @@ public class Matrix3D {
         });
     }
 
+    /**
+     * @param obj another object
+     * @return <code>true</code> - if the two matrices are equal
+     */
     @Override
     public boolean equals(@NotNull Object obj) {
         if (obj == this) {

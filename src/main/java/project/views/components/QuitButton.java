@@ -1,17 +1,13 @@
 package project.views.components;
 
+import project.views.UIs.BloodyButtonUI;
+
 import javax.swing.*;
-import java.awt.*;
 
 public class QuitButton extends JButton {
     public QuitButton() {
         super("Quit");
-        setBounds(1680, 0, 240, 160);
-        setFont(new Font("Sherif", Font.BOLD, 50));
-        setBackground(Color.GREEN);
-        setForeground(Color.BLACK);
-
-        // TODO: Finish UI
+        setUI(new BloodyButtonUI());
 
         addActionListener(e -> {
             // TODO: Finish dialog UI

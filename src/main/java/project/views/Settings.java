@@ -12,7 +12,13 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The view of the settings of the room
+ */
 public class Settings extends JPanel {
+    /**
+     * Constructs a new Settings object
+     */
     public Settings() {
         setBackground(Color.BLACK);
         setFocusable(true);

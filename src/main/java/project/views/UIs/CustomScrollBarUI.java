@@ -10,6 +10,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Custom UI for the FOV scroller
+ */
 public class CustomScrollBarUI extends BasicScrollBarUI {
     private static final int THUMB_SIZE = 60;
     private static final BufferedImage thumbImage;
@@ -34,11 +37,6 @@ public class CustomScrollBarUI extends BasicScrollBarUI {
         scrollBar.setForeground(new Color(48, 144, 216));
         scrollBar.setBackground(new Color(255, 255, 255, 12));
         scrollBar.setOpaque(false);
-    }
-
-    @Override
-    public Rectangle getThumbBounds() {
-        return super.getThumbBounds();
     }
 
     @Override

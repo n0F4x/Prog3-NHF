@@ -4,7 +4,13 @@ import project.views.UIs.BloodyButtonUI;
 
 import javax.swing.*;
 
+/**
+ * Customs class for quitting the application
+ */
 public class QuitButton extends JButton {
+    /**
+     * Constructs a new QuitButton
+     */
     public QuitButton() {
         super("Quit");
         setUI(new BloodyButtonUI());

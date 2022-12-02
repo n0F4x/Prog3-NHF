@@ -9,6 +9,9 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * UI class for buttons that fit the Bloody theme
+ */
 public class BloodyButtonUI extends BasicButtonUI {
     private static final Font font;
 

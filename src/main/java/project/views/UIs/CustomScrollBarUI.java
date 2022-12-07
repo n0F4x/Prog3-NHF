@@ -15,7 +15,7 @@ import java.io.IOException;
  */
 public class CustomScrollBarUI extends BasicScrollBarUI {
     private static final int THUMB_SIZE = 60;
-    private static final BufferedImage thumbImage;
+    private static final @NotNull BufferedImage thumbImage;
 
     static {
         try {
@@ -27,6 +27,10 @@ public class CustomScrollBarUI extends BasicScrollBarUI {
     }
 
 
+    /**
+     * UI installer for Swing
+     * DO NOT USE explicitly!
+     */
     @Override
     public void installUI(@NotNull JComponent component) {
         super.installUI(component);
@@ -35,7 +39,7 @@ public class CustomScrollBarUI extends BasicScrollBarUI {
 
         scrollBar.setPreferredSize(new Dimension(THUMB_SIZE, THUMB_SIZE));
         scrollBar.setForeground(new Color(48, 144, 216));
-        scrollBar.setBackground(new Color(255, 255, 255, 12));
+        scrollBar.setBackground(new Color(255, 255, 255, 30));
         scrollBar.setOpaque(false);
     }
 

@@ -24,6 +24,10 @@ public class BloodyButtonUI extends BasicButtonUI {
     }
 
 
+    /**
+     * UI installer for Swing
+     * DO NOT USE explicitly!
+     */
     @Override
     public void installUI (@NotNull JComponent component) {
         super.installUI(component);

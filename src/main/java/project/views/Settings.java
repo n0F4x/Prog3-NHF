@@ -54,7 +54,7 @@ public class Settings extends JPanel {
 
         @NotNull Font valueFont;
         try {
-            valueFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/NotoSerifKhojki-VariableFont.ttf")).deriveFont(35.0f);
+            valueFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/NotoSerifKhojki-Regular.ttf")).deriveFont(35.0f);
         } catch (FontFormatException | IOException e) {
             throw new RuntimeException(e);
         }
